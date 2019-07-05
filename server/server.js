@@ -8,4 +8,4 @@ app.use(express.static('../dist'));
 app.use(parser.json());
 app.use(cors());
 
-app.listen(3050, ()=>console.log('listening on port 3050'));
+app.listen(3000, ()=>console.log('listening on port 3000'));
