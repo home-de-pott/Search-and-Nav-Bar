@@ -1,7 +1,7 @@
 module.exports = {
   apps: [{
     name: 'Search-And-Nav-Bar',
-    script: './dist/index.js'
+    script: './client/src/index.js'
   }],
   deploy: {
     production: {
