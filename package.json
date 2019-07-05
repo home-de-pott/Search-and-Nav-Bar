@@ -5,6 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "jest",
+    "restart": "pm2 startOrRestart ecosystem.config.js",
+    "deploy": "pm2 deploy ecosystem.config.js production",
     "start": "nodemon server/server.js",
     "react-dev": "webpack -d --watch"
   },
@@ -21,11 +23,14 @@
   "dependencies": {
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
+    "bootstrap": "^4.3.1",
     "cors": "^2.8.5",
     "express": "^4.17.0",
     "mongoose": "^5.5.14",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-autosuggest": "^9.4.3",
+    "react-dom": "^16.8.6",
+    "reactstrap": "^8.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -38,6 +43,7 @@
     "mysql": "^2.17.1",
     "nodemon": "^1.19.0",
     "path": "^0.12.7",
+    "pm2": "^3.5.1",
     "puppeteer": "^1.18.1",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2"
