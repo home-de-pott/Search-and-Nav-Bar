@@ -7,7 +7,7 @@ const path = require('path');
 const app = express();
 
 
-app.use(morgan('combined'))
+app.use(morgan('combined'));
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../dist')));
 app.use(parser.json());
