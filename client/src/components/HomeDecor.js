@@ -2,7 +2,7 @@ import React from 'react';
 
 const HomeDecor = (props) => {
   return (
-    <>
+    <div onMouseEnter = {props.handleShadeIn} onMouseLeave = {props.handleShadeOut} >
       <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Home Decor
@@ -26,7 +26,7 @@ const HomeDecor = (props) => {
             <a className="dropdown-item" href="#">Corner Shelves</a>
           </div>
         </li>
-    </>
+    </div>
   );
 }
  

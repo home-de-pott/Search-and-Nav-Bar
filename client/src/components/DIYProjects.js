@@ -2,11 +2,10 @@ import React from 'react';
 
 const DIYProjects = (props) => {
   return (
-    <>
+    <div onMouseEnter = {props.handleShadeIn} onMouseLeave = {props.handleShadeOut}>
       <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            DIY Projects
-          </a>
+          <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">DIY Projects</a>
           <div className="dropdown-menu" aria-labelledby="navbarDropdown">
             <a className="dropdown-item bold" href="#">Outdoor Ideas</a>
             <div className="dropdown-divider"></div>
@@ -24,7 +23,7 @@ const DIYProjects = (props) => {
             <a className="dropdown-item" href="#">Home Decor Ideas and Projects</a>
           </div>
         </li>
-    </>
+    </div>
   );
 }
  
