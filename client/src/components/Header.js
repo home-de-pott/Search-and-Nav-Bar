@@ -9,32 +9,43 @@ const Header = (props) => {
   const imgStyle = {
     display: 'inline',
     width: '36px',
-    height: '31px'
+    height: '31px',
+    padding: '0px',
+    margin: '0px'
   }
   const listStyle = {
-    position: 'relative',
-    display: 'inline',
-    width: '100%'
+    position: 'absolute',
+    left: '275px',
+    top: '75px',
+    width: '500px',
+    'backgroundColor': 'white',
+    'opacity': 1,
+    'zIndex': 1
   }
-  const containerStyle = {
-    
+  const headingStyle = {
+   
   }
 
   return (
-    <div className = "container-fluid">
+    <div>
       <TopNavBar />
-        <img src="./assets/images/home-depot-logo.png" height = "100px" width = "100px"/>
-        <img src="./assets/images/location.png" height = "59px" width = "158px" />
-          <input style = {inputStyle} type = "text" placeholder = "Search"
-            onChange = {props.handleInputChange} 
-            onClick = {(e) => props.searchClick(e)}
-            />
-          <img style = {imgStyle} src="./assets/images/button.png" height = "31px" width = "36px"/>
-          {props.showSuggest === true ? (
-            <div style = {listStyle} className = "dropdown-menu border border-dark">
-              {props.inputList.map((item) => <li key = {item} className = "dropdown-item">{item}</li>)}
-            </div>
-          ) : (<></>)}
+      <div style={{display: 'inline'}} className = "container-fluid">
+          <img src="./assets/images/home-depot-logo.png" height = "100px" width = "100px"/>
+          <img src="./assets/images/location.png" height = "59px" width = "158px" />
+          <div style={{display: 'inline'}}>
+            <span style={{display: 'inline'}} className = "input-group mb-3">
+              <input style = {inputStyle} type = "text" placeholder = "Search"
+                onChange = {props.handleInputChange} 
+                onClick = {(e) => props.searchClick(e)}/>
+                <img className="input-group-addon img-fluid p-0 m-0" style = {imgStyle} onClick = {props.clearSuggest} src="./assets/images/button.png" />
+            </span>
+          </div>
+            {props.showSuggest === true ? (
+              <div style = {listStyle} className = "border border-dark">
+                {props.suggestList.map((item) => <li key = {Math.random()} className = "dropdown-item">{item}</li>)}
+              </div>
+            ) : (<></>)}
+       </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import NavBar from './NavBar.js'
-import Header from './Header.js'
+import NavBar from './NavBar.js';
+import Header from './Header.js';
+import axios from 'axios'
 
 export default class App extends React.Component {
 	constructor(props){
@@ -10,32 +11,33 @@ export default class App extends React.Component {
 				id: 205594063,
 				name: '20 oz. Hammer'
 			},
-			itemList: ['hammer', 'wrench', 'big hammer', 'tent'],
+			itemList: [],
 			itemHovered: false,
 			inputValue: '',
-			inputList: [],
+			suggestList: [],
 			showSuggest: false
 		}
 	}
 
-	onChange(event, { newValue }) {
-    this.setState({
-      value: newValue
-    });
-	};
+	componentDidMount() {
+		axios.get('/allItems')
+		.then((results) => {
+			let itemList = [];
+			results.data.map(item => {
+				if (item.name.length > 30){
+					itemList.push(item.name.substring(0, 30) + "...");
+				} else {
+				itemList.push(item.name)}
+			});
+			this.setState({itemList: itemList});
+		})
+	}
 	
 	onSuggestionsFetchRequested({ value }) {
     this.setState({
       suggestions: getSuggestions(value)
     });
   };
-
-  // Autosuggest will call this function every time you need to clear suggestions.
-  onSuggestionsClearRequested() {
-    this.setState({
-      suggestions: []
-    });
-	};
 	
 	handleShadeIn() {
 		this.setState({itemHovered: true})
@@ -48,11 +50,11 @@ export default class App extends React.Component {
 		let currentList = [];
 		let {itemList, inputValue} = this.state;
 		for (let i = 0; i < itemList.length; i++){
-			if (itemList[i].includes(e.target.value)){
+			if (itemList[i].toLowerCase().includes(e.target.value.toLowerCase())){
 				currentList.push(itemList[i]);
 			}
 		}
-		this.setState({inputValue: e.target.value, inputList: currentList});
+		this.setState({inputValue: e.target.value, suggestList: currentList});
 	}
 
 	handleNewItem() {
@@ -62,6 +64,10 @@ export default class App extends React.Component {
 
 	searchClick(e) {
 		this.setState({showSuggest: true});
+	}
+
+	clearSuggest() {
+		this.setState({showSuggest: false})
 	}
 	
 	render() {
@@ -75,12 +81,13 @@ export default class App extends React.Component {
 		return (
 			<div>
 				<Header inputValue = {this.state.inputValue}
-								inputList = {this.state.inputList}
+								suggestList = {this.state.suggestList}
 								itemList = {this.state.itemList}
 								handleInputChange = {this.handleInputChange.bind(this)} 
 								handleNewItem = {this.handleNewItem.bind(this)} 
 								searchClick = {this.searchClick.bind(this)}
-								showSuggest = {this.state.showSuggest}/>
+								showSuggest = {this.state.showSuggest}
+								clearSuggest = {this.clearSuggest.bind(this)}/>
 				<NavBar itemHoveredName = {this.state.itemHoveredName} item = {this.state.currentItem} 
 								handleShadeIn = {this.handleShadeIn.bind(this)} 
 								handleShadeOut = {this.handleShadeOut.bind(this)}
