@@ -2,9 +2,6 @@ import React from 'react';
 
 const TopNavBar = (props) => {
   const listStyle = {
-		position: 'aboslute',
-		top: '100%',
-		left: '100%',
 		'fontSize': '10px'
   }
   return (

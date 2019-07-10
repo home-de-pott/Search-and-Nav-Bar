@@ -1,4 +1,5 @@
 let allItems = [
+  {id: '205594063', name: '20 oz. Hammer', price: 24.97},
   {id: '100550897', name: '16 oz. Rubber Mallet' , price: 5.47},
   {id: '203164241', name: '20-Volt 6-1/2 in. MAX Lithium-Ion Cordless Circular Saw', price: 129.00},
   {id: '205216332', name: '15 Amp 10 in. Sliding Miter Saw with Laser', price: 219.00},

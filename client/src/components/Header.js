@@ -29,20 +29,21 @@ const Header = (props) => {
   return (
     <div>
       <TopNavBar />
-      <div style={{display: 'inline'}} className = "container-fluid">
+      <div style={{display: 'inline'}} className = "container-fluid row">
           <img src="./assets/images/home-depot-logo.png" height = "100px" width = "100px"/>
           <img src="./assets/images/location.png" height = "59px" width = "158px" />
           <div style={{display: 'inline'}}>
             <span style={{display: 'inline'}} className = "input-group mb-3">
               <input style = {inputStyle} type = "text" placeholder = "Search"
-                onChange = {props.handleInputChange} 
-                onClick = {(e) => props.searchClick(e)}/>
-                <img className="input-group-addon img-fluid p-0 m-0" style = {imgStyle} onClick = {props.clearSuggest} src="./assets/images/button.png" />
+                onChange = {props.handleInputChange}/>
+              <img className="input-group-addon img-fluid p-0 m-0" style = {imgStyle} onClick = {props.renderNewItem} 
+                src="./assets/images/button.png" />
             </span>
           </div>
             {props.showSuggest === true ? (
               <div style = {listStyle} className = "border border-dark">
-                {props.suggestList.map((item) => <li key = {Math.random()} className = "dropdown-item">{item}</li>)}
+                {props.suggestList.map((item) => <li key = {Math.random()} className = "dropdown-item" 
+                                                onClick = {(e) => props.renderNewItem(e)}>{item}</li>)}
               </div>
             ) : (<></>)}
        </div>

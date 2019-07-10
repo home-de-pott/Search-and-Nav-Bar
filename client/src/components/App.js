@@ -47,6 +47,9 @@ export default class App extends React.Component {
 	}
 
 	handleInputChange(e) {
+		if (e.target.value === ''){
+		 this.setState({showSuggest: false})
+		} else {
 		let currentList = [];
 		let {itemList, inputValue} = this.state;
 		for (let i = 0; i < itemList.length; i++){
@@ -54,7 +57,8 @@ export default class App extends React.Component {
 				currentList.push(itemList[i]);
 			}
 		}
-		this.setState({inputValue: e.target.value, suggestList: currentList});
+		this.setState({inputValue: e.target.value, suggestList: currentList, showSuggest: true});
+	}
 	}
 
 	handleNewItem() {
@@ -62,11 +66,9 @@ export default class App extends React.Component {
 		this.setState({inputValue: ''});
 	}
 
-	searchClick(e) {
-		this.setState({showSuggest: true});
-	}
-
-	clearSuggest() {
+	renderNewItem(e) {
+		let curItem = this.state.currentItem;
+		//set new window object for new item id
 		this.setState({showSuggest: false})
 	}
 	
@@ -84,10 +86,9 @@ export default class App extends React.Component {
 								suggestList = {this.state.suggestList}
 								itemList = {this.state.itemList}
 								handleInputChange = {this.handleInputChange.bind(this)} 
-								handleNewItem = {this.handleNewItem.bind(this)} 
-								searchClick = {this.searchClick.bind(this)}
-								showSuggest = {this.state.showSuggest}
-								clearSuggest = {this.clearSuggest.bind(this)}/>
+								handleNewItem = {this.handleNewItem.bind(this)}
+								renderNewItem = {this.renderNewItem.bind(this)}
+								showSuggest = {this.state.showSuggest}/>
 				<NavBar itemHoveredName = {this.state.itemHoveredName} item = {this.state.currentItem} 
 								handleShadeIn = {this.handleShadeIn.bind(this)} 
 								handleShadeOut = {this.handleShadeOut.bind(this)}
