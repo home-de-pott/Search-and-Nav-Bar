@@ -1,4 +1,4 @@
-.dropdown:hover .dropdown-menu {
+.dropdownMichael:hover .dropdown-menuMichael {
   display: block;
   margin-top: 0;
   padding: 0;
@@ -9,7 +9,12 @@
   border-bottom: 3px solid #f86202;
 }
 
-.dropdown-menu > a {
+.dropdown-menuMichael > a {
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.topNavMichael:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }

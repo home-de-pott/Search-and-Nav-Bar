@@ -27,32 +27,36 @@ export default class App extends React.Component {
 	}
 
 	componentDidMount() {
+		window.addEventListener('addToCart', (e) => {
+			let newCart = this.state.cart;
+			newCart.numberOfItems++;
+			for (let i = 0; i < this.state.itemList; i++){
+				if (this.state.itemList[i].id === e.detail.id){
+					newCart.totalPrice += this.state.itemList[i].price;
+					newCart.itemList.push(this.state.itemList[i].name);
+					break;
+				}
+			}
+			this.setState({cart: newCart});
+		})
 		axios.get('/allItems')
 		.then((results) => {
 			console.log(results)
 			let itemList = [];
 			results.data.map(item => {
 				if (item.name.length > 40){
-					itemList.push(item.name.substring(0, 40) + "...");
+					itemList.push({name: item.name.substring(0, 40) + "...", id: item.id, price: item.price});
 				} else {
-				itemList.push(item.name)}
+				itemList.push({name: item.name, id: item.id, price: item.price})}
 			});
 			this.setState({itemList: itemList});
 		})
 	}
 	
-	onSuggestionsFetchRequested({ value }) {
-    this.setState({
-      suggestions: getSuggestions(value)
-    });
-  };
-	
 	handleShadeIn(e) {
-		// e.target.style['text-decoration'] = 'underline';
 		this.setState({itemHovered: true})
 	}
 	handleShadeOut(e) {
-		// e.target.style['text-decoration'] = 'none';
 		this.setState({itemHovered: false})
 	}
 
@@ -63,7 +67,7 @@ export default class App extends React.Component {
 		let currentList = [];
 		let {itemList, inputValue} = this.state;
 		for (let i = 0; i < itemList.length; i++){
-			if (itemList[i].toLowerCase().includes(e.target.value.toLowerCase())){
+			if (itemList[i].name.toLowerCase().includes(e.target.value.toLowerCase())){
 				currentList.push(itemList[i]);
 			}
 		}
@@ -77,8 +81,12 @@ export default class App extends React.Component {
 	}
 
 	renderNewItem(e) {
+		window.dispatchEvent(
+			new CustomEvent('getProduct', {
+				detail: {id: e.target.id},
+			})
+		)
 		let curItem = this.state.currentItem;
-		//set new window object for new item id
 		this.setState({showSuggest: false})
 	}
 
@@ -104,7 +112,7 @@ export default class App extends React.Component {
 			numberOfItems: 0,
 			totalPrice: 0
 		}
-		this.setState({cart: newCart})
+		this.setState({itemHovered: false, cart: newCart})
 	}
 	
 	render() {

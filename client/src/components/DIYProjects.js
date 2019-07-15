@@ -3,10 +3,10 @@ import React from 'react';
 const DIYProjects = (props) => {
   return (
     <div onMouseEnter = {props.handleShadeIn} onMouseLeave = {props.handleShadeOut}>
-      <li className="nav-item dropdown">
+      <li className="nav-item dropdown dropdownMichael">
           <a style = {{fontSize: '14px'}} className="navBarMichael nav-link text-dark" href="#" id="navbarDropdown" role="button" 
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">DIY Projects</a>
-          <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div className="dropdown-menu dropdown-menuMichael" aria-labelledby="navbarDropdown">
             <a className="dropdown-item bold" href="#">Outdoor Ideas</a>
             <div className="dropdown-divider"></div>
             <a className="dropdown-item" href="#">Outdoor Living Ideas and Projects</a>

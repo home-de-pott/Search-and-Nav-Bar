@@ -3,10 +3,10 @@ import React from 'react';
 const AllDepartments = (props) => {
   return (
     <div onMouseEnter = {props.handleShadeIn} onMouseLeave = {props.handleShadeOut}>
-      <li className="nav-item dropdown">
+      <li className="nav-item dropdown dropdownMichael">
           <a style = {{fontSize: '14px'}} className="navBarMichael nav-link text-dark" href="#" id="navbarDropdown"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Departments</a>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div className="dropdown-menu dropdown-menuMichael" aria-labelledby="navbarDropdown">
               <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('1-1')} onMouseLeave = {() => props.setDropImg('')}>Appliances</a>
               <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('1-2')} onMouseLeave = {() => props.setDropImg('')}>Bath & Faucets</a>
               <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('1-3')} onMouseLeave = {() => props.setDropImg('')}>Blinds & Window Treatment</a>
@@ -27,7 +27,7 @@ const AllDepartments = (props) => {
               <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('1-18')} onMouseLeave = {() => props.setDropImg('')}>Tools</a>
               <div>
             {props.dropDownImage === '' ? (<></>) :(
-              <img style = {{position: 'absolute', left: '248px', top: '0px'}} src = {`./assets/images/navbarimg/${props.dropDownImage}.png`} height = "400px" />) 
+              <img style = {{position: 'absolute', left: '248px', top: '0px'}} src = {`https://home-de-potts.s3.us-east-2.amazonaws.com/${props.dropDownImage}.png`} height = "400px" />) 
               }
               </div>
             </div>

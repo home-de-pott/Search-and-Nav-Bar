@@ -48,8 +48,8 @@ const Header = (props) => {
           </div>
             {props.showSuggest === true ? (
               <div style = {listStyle} className = "border border-dark">
-                {props.suggestList.map((item) => <li key = {Math.random()} className = "dropdown-item" 
-                                                onClick = {(e) => props.renderNewItem(e)}>{item}</li>)}
+                {props.suggestList.map((item) => <li id = {item.id} key = {item.id} className = "dropdown-item" 
+                                                onClick = {(e) => props.renderNewItem(e)}>{item.name}</li>)}
               </div>
             ) : (<></>)}
           <span style = {{padding: '30px'}}></span>
