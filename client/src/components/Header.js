@@ -22,6 +22,8 @@ const Header = (props) => {
     width: '600px',
     'backgroundColor': 'white',
     'opacity': 1,
+    'max-height': '400px',
+    'overflow-y': 'scroll',
     'zIndex': 1
   }
   const headerStyle = {
@@ -40,7 +42,8 @@ const Header = (props) => {
           <img src="./assets/images/location.png" height = "59px" width = "158px" />
           <div style={{display: 'inline'}}>
             <span style={{display: 'inline'}} className = "input-group mb-3">
-              <input style = {inputStyle} type = "text" placeholder = "Search"
+              <input style = {inputStyle} type = "text" placeholder = "What can we help you find today?"
+                onBlur = {props.loseFocusSearch}
                 onChange = {props.handleInputChange}/>
               <img className="input-group-addon img-fluid p-0 m-0" style = {imgStyle} onClick = {props.renderNewItem} 
                 src="./assets/images/button.png" />
@@ -57,6 +60,7 @@ const Header = (props) => {
           <span style = {{padding: '30px'}}></span>
           <Cart cart = {props.cart} itemHoverd = {props.itemHovered} 
                 cartClick = {props.cartClick}
+                loseFocusCart = {props.loseFocusCart}
                 handleCheckout = {props.handleCheckout}/>
        </div>
     </div>

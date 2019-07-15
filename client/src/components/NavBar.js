@@ -10,8 +10,9 @@ const NavBar = (props) => {
 		top: '-25px'
 	}
 	const lineStyle = {
-		position: 'relative',
-		top: '-40px',
+		position: 'absolute',
+		top: '145px',
+		width: '100%',
 		border: '2px solid #f86202'
 	}
 	return (

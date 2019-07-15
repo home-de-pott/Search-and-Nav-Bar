@@ -18,10 +18,10 @@ export default class App extends React.Component {
 			suggestList: [],
 			showSuggest: false,
 			cart: {
-				itemList: [],
+				cartList: [],
 				cartClicked: false,
-				numberOfItems: 2,
-				totalPrice: 57.45
+				numberOfItems: 0,
+				totalPrice: 0
 			}
 		}
 	}
@@ -30,10 +30,10 @@ export default class App extends React.Component {
 		window.addEventListener('addToCart', (e) => {
 			let newCart = this.state.cart;
 			newCart.numberOfItems++;
-			for (let i = 0; i < this.state.itemList; i++){
-				if (this.state.itemList[i].id === e.detail.id){
+			for (let i = 0; i < this.state.itemList.length; i++){
+				if (parseInt(this.state.itemList[i].id) == e.detail.id){
 					newCart.totalPrice += this.state.itemList[i].price;
-					newCart.itemList.push(this.state.itemList[i].name);
+					newCart.cartList.push({name: this.state.itemList[i].name, price: this.state.itemList[i].price});
 					break;
 				}
 			}
@@ -73,6 +73,16 @@ export default class App extends React.Component {
 		}
 		this.setState({inputValue: e.target.value, suggestList: currentList, showSuggest: true});
 	}
+	}
+
+	loseFocusSearch(){
+		this.setState({showSuggest: false})
+	}
+
+	loseFocusCart(){
+		let newCart = this.state.cart;
+		newCart.cartClicked = false;
+		this.setState({itemHovered: false, cart: newCart})
 	}
 
 	handleNewItem() {
@@ -136,6 +146,8 @@ export default class App extends React.Component {
 								itemHoverd = {this.state.itemHovered}
 								cartClick = {this.cartClick.bind(this)}
 								cart = {this.state.cart}
+								loseFocusCart = {this.loseFocusCart.bind(this)}
+								loseFocusSearch = {this.loseFocusSearch.bind(this)}
 								handleCheckout = {this.handleCheckout.bind(this)}/>
 				<NavBar item = {this.state.currentItem} 
 								handleShadeIn = {this.handleShadeIn.bind(this)} 
