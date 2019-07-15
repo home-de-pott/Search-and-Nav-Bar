@@ -27,7 +27,12 @@ const Cart = (props) => {
           <img onClick = {props.cartClick} style = {closeCart} src="./assets/images/cartx.svg" />
           <h4 style = {{leftPadding: '10%'}}>Your Order</h4><hr/>
           <div>Cart Items</div>
-          {props.cart.cartList.map((item, index) => <div style = {{'fontSize': '10px'}} key = {Math.random()}>{index + 1}. {item.name} Price: ${item.price}</div>)}
+          {props.cart.cartList.map((item, index) => (
+            <div>
+              <span style = {{'fontSize': '10px'}} key = {Math.random()}>{index + 1}. {item.name} Price: ${item.price}</span>
+              <span style = {{position: 'relative', 'fontSize': '10px', left: '150px'}}>delete</span>
+            </div>
+            ))}
           <hr/>
           <div>Subtotal: ${props.cart.totalPrice}</div>
           <div>Shipping: ${props.cart.numberOfItems * 1.99}</div>

@@ -39,7 +39,7 @@ export default class App extends React.Component {
 			}
 			this.setState({cart: newCart});
 		})
-		axios.get('/allItems')
+		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/allItems')
 		.then((results) => {
 			console.log(results)
 			let itemList = [];
