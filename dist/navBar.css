@@ -1,4 +1,15 @@
 .dropdown:hover .dropdown-menu {
   display: block;
   margin-top: 0;
+  padding: 0;
+}
+
+.navBarMichael:hover {
+  text-decoration: none;
+  border-bottom: 3px solid #f86202;
+}
+
+.dropdown-menu > a {
+  padding-top: 0;
+  padding-bottom: 0;
 }

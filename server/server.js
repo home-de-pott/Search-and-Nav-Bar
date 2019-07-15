@@ -16,5 +16,5 @@ app.use(parser.json());
 app.listen(3050, ()=>console.log('listening on port 3050'));
 
 app.get('/allItems', (req, res) => {
-  db.getAll((data) => res.send(data));
+  db.getAll((data) => res.send(data))
 })

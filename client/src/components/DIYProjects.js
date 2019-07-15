@@ -4,7 +4,7 @@ const DIYProjects = (props) => {
   return (
     <div onMouseEnter = {props.handleShadeIn} onMouseLeave = {props.handleShadeOut}>
       <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+          <a style = {{fontSize: '14px'}} className="navBarMichael nav-link text-dark" href="#" id="navbarDropdown" role="button" 
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">DIY Projects</a>
           <div className="dropdown-menu" aria-labelledby="navbarDropdown">
             <a className="dropdown-item bold" href="#">Outdoor Ideas</a>
