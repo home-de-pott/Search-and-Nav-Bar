@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, '../dist')));
 app.use(parser.json());
 
-app.listen(3050, ()=>console.log('listening on port 3050'));
+app.listen(3050, ()=>console.log('listening on port 3050 hello'));
 
 app.get('/allItems', (req, res) => {
   db.getAll((data) => res.send(data))
