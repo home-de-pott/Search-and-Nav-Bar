@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://Michael:mongodepot@cluster0-ibbip.mongodb.net/homedepot?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://Michael:@cluster0-ibbip.mongodb.net/homedepot?retryWrites=true&w=majority');
 
 let itemSchema = mongoose.Schema({
   id: String,
