@@ -156,8 +156,6 @@ export default class App extends React.Component {
 								setDropImg = {this.setDropImg.bind(this)}
 								/>
 				{this.state.itemHovered === true ? (<div style = {shadeStyle}></div>) : (<></>)}
-				<div>Test products with stuff</div>
-				<img src="https://home-de-potts.s3.us-east-2.amazonaws.com/home-depot-logo.png" height = "100" width = "100"/>
 			</div>
 		)
 	}
