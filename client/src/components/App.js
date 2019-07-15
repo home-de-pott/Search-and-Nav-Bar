@@ -33,7 +33,7 @@ export default class App extends React.Component {
 			for (let i = 0; i < this.state.itemList.length; i++){
 				if (parseInt(this.state.itemList[i].id) == e.detail.id){
 					newCart.totalPrice += this.state.itemList[i].price;
-					newCart.cartList.push({name: this.state.itemList[i].name, price: this.state.itemList[i].price});
+					newCart.cartList.push({id: this.state.itemList[i].id, name: this.state.itemList[i].name, price: this.state.itemList[i].price});
 					break;
 				}
 			}
@@ -41,7 +41,6 @@ export default class App extends React.Component {
 		})
 		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/allItems')
 		.then((results) => {
-			console.log(results)
 			let itemList = [];
 			results.data.map(item => {
 				if (item.name.length > 40){
@@ -96,8 +95,19 @@ export default class App extends React.Component {
 				detail: {id: e.target.id},
 			})
 		)
-		let curItem = this.state.currentItem;
 		this.setState({showSuggest: false})
+	}
+
+	deleteCartItem(e) {
+		let newCart = this.state.cart;
+		for (let i = 0; i < newCart.cartList.length; i++){
+			if (newCart.cartList[i].id === e.target.id){
+				newCart.numberOfItems--;
+				newCart.totalPrice -= newCart.cartList[i].price;
+				newCart.cartList.splice(i, 1);
+			}
+		}
+		this.setState({cart: newCart})
 	}
 
 	setDropImg(img) {
@@ -146,6 +156,7 @@ export default class App extends React.Component {
 								itemHoverd = {this.state.itemHovered}
 								cartClick = {this.cartClick.bind(this)}
 								cart = {this.state.cart}
+								deleteCartItem = {this.deleteCartItem.bind(this)}
 								loseFocusCart = {this.loseFocusCart.bind(this)}
 								loseFocusSearch = {this.loseFocusSearch.bind(this)}
 								handleCheckout = {this.handleCheckout.bind(this)}/>

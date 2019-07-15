@@ -16,7 +16,7 @@ const Cart = (props) => {
     height: '15px',
     width: '15px'
   }
-  let tax = Math.round((props.cart.numberOfItems * 1.99 + props.cart.totalPrice) * .08);
+  let tax = Math.round(((props.cart.numberOfItems * 1.99 + props.cart.totalPrice) * .08 * 100) /100);
   let total = (tax + (props.cart.numberOfItems * 1.99) + props.cart.totalPrice).toFixed(2);
   return ( 
     <>
@@ -28,9 +28,9 @@ const Cart = (props) => {
           <h4 style = {{leftPadding: '10%'}}>Your Order</h4><hr/>
           <div>Cart Items</div>
           {props.cart.cartList.map((item, index) => (
-            <div>
-              <span style = {{'fontSize': '10px'}} key = {Math.random()}>{index + 1}. {item.name} Price: ${item.price}</span>
-              <span style = {{position: 'relative', 'fontSize': '10px', left: '150px'}}>delete</span>
+            <div key = {Math.random()} className = 'container-fluid'>
+              <img id = {item.id} onClick = {props.deleteCartItem} style = {{left: '90%'}} style = {closeCart} src="https://home-de-potts.s3.us-east-2.amazonaws.com/cartx.svg" />
+              <span className = 'col-7' style = {{'fontSize': '10px', left: '-10%'}}>{index + 1}. {item.name} Price: ${item.price}</span>
             </div>
             ))}
           <hr/>

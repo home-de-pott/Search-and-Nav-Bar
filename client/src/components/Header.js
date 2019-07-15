@@ -22,8 +22,8 @@ const Header = (props) => {
     width: '600px',
     'backgroundColor': 'white',
     'opacity': 1,
-    'max-height': '400px',
-    'overflow-y': 'scroll',
+    'maxHeight': '400px',
+    'overflowY': 'scroll',
     'zIndex': 1
   }
   const headerStyle = {
@@ -43,7 +43,6 @@ const Header = (props) => {
           <div style={{display: 'inline'}}>
             <span style={{display: 'inline'}} className = "input-group mb-3">
               <input style = {inputStyle} type = "text" placeholder = "What can we help you find today?"
-                onBlur = {props.loseFocusSearch}
                 onChange = {props.handleInputChange}/>
               <img className="input-group-addon img-fluid p-0 m-0" style = {imgStyle} onClick = {props.renderNewItem} 
                 src="https://home-de-potts.s3.us-east-2.amazonaws.com/button.png" />
@@ -52,7 +51,7 @@ const Header = (props) => {
             {props.showSuggest === true ? (
               <div style = {listStyle} className = "border border-dark">
                 {props.suggestList.map((item) => <li id = {item.id} key = {item.id} className = "dropdown-item" 
-                                                onClick = {(e) => props.renderNewItem(e)}>{item.name}</li>)}
+                                                onClick = {props.renderNewItem}>{item.name}</li>)}
               </div>
             ) : (<></>)}
           <span style = {{padding: '30px'}}></span>
@@ -60,6 +59,7 @@ const Header = (props) => {
           <span style = {{padding: '30px'}}></span>
           <Cart cart = {props.cart} itemHoverd = {props.itemHovered} 
                 cartClick = {props.cartClick}
+                deleteCartItem = {props.deleteCartItem}
                 loseFocusCart = {props.loseFocusCart}
                 handleCheckout = {props.handleCheckout}/>
        </div>
