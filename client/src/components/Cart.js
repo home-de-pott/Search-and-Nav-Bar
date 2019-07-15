@@ -21,10 +21,10 @@ const Cart = (props) => {
   return ( 
     <>
       <span onClick = {props.cartClick}>Cart| {props.cart.numberOfItems} items </span>
-      <img src="./assets/images/cart.png" height = "35px" onClick = {props.cartClick}/>
+      <img src="https://home-de-potts.s3.us-east-2.amazonaws.com/cart.png" height = "35px" onClick = {props.cartClick}/>
       {props.cart.cartClicked ? (
         <div style = {cartStyle}>
-          <img onClick = {props.cartClick} style = {closeCart} src="./assets/images/cartx.svg" />
+          <img onClick = {props.cartClick} style = {closeCart} src="https://home-de-potts.s3.us-east-2.amazonaws.com/cartx.svg" />
           <h4 style = {{leftPadding: '10%'}}>Your Order</h4><hr/>
           <div>Cart Items</div>
           {props.cart.cartList.map((item, index) => (
@@ -41,7 +41,7 @@ const Cart = (props) => {
           <div><h4>Total: ${Math.round(total * 100) / 100}</h4></div>
           <a href="">Have promo code?</a>
           <div style = {{fontSize: '8px'}}>* Shipping and delivery charges are calculated at the lowest rate available. Other methods will be viewable on the next page.</div>
-          <div><img onClick = {props.handleCheckout} src="./assets/images/checkoutButton.png" height = "35px" /></div>
+          <div><img onClick = {props.handleCheckout} src="https://home-de-potts.s3.us-east-2.amazonaws.com/checkoutButton.png" height = "35px" /></div>
         </div>
       ) : (<></>)}
     </>

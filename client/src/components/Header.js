@@ -38,15 +38,15 @@ const Header = (props) => {
         <TopNavBar />
       </div>
       <div style={headerStyle} className = "container-fluid row">
-          <img src="./assets/images/home-depot-logo.png" height = "100px" width = "100px"/>
-          <img src="./assets/images/location.png" height = "59px" width = "158px" />
+          <img src="https://home-de-potts.s3.us-east-2.amazonaws.com/home-depot-logo.png" height = "100px" width = "100px"/>
+          <img src="https://home-de-potts.s3.us-east-2.amazonaws.com/location.png" height = "59px" width = "158px" />
           <div style={{display: 'inline'}}>
             <span style={{display: 'inline'}} className = "input-group mb-3">
               <input style = {inputStyle} type = "text" placeholder = "What can we help you find today?"
                 onBlur = {props.loseFocusSearch}
                 onChange = {props.handleInputChange}/>
               <img className="input-group-addon img-fluid p-0 m-0" style = {imgStyle} onClick = {props.renderNewItem} 
-                src="./assets/images/button.png" />
+                src="https://home-de-potts.s3.us-east-2.amazonaws.com/button.png" />
             </span>
           </div>
             {props.showSuggest === true ? (
@@ -56,7 +56,7 @@ const Header = (props) => {
               </div>
             ) : (<></>)}
           <span style = {{padding: '30px'}}></span>
-          <img src="./assets/images/myAccount.png" height = "40px" />
+          <img src="https://home-de-potts.s3.us-east-2.amazonaws.com/myAccount.png" height = "40px" />
           <span style = {{padding: '30px'}}></span>
           <Cart cart = {props.cart} itemHoverd = {props.itemHovered} 
                 cartClick = {props.cartClick}
