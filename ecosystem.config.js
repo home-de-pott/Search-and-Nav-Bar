@@ -6,7 +6,7 @@ module.exports = {
   deploy: {
     production: {
       user: 'ubuntu',
-      host: 'ec2-18-216-242-187.us-east-2.compute.amazonaws.com',
+      host: 'ec2-13-58-124-197.us-east-2.compute.amazonaws.com',
       key: '~/.ssh/Header-FEC.pem',
       ref: 'origin/master',
       repo: 'https://github.com/home-de-pott/Search-and-Nav-Bar.git',
