@@ -16,7 +16,8 @@ const Cart = (props) => {
     height: '15px',
     width: '15px'
   }
-  let tax = Math.round(((props.cart.numberOfItems * 1.99 + props.cart.totalPrice) * .08 * 100) /100);
+  
+  let tax = Math.round(((props.cart.numberOfItems * 1.99) + props.cart.totalPrice) * .08 * 100) /100;
   let total = (tax + (props.cart.numberOfItems * 1.99) + props.cart.totalPrice).toFixed(2);
   return ( 
     <>
@@ -29,12 +30,12 @@ const Cart = (props) => {
           <div>Cart Items</div>
           {props.cart.cartList.map((item, index) => (
             <div key = {Math.random()} className = 'container-fluid'>
-              <img id = {item.id} onClick = {props.deleteCartItem} style = {{left: '90%'}} style = {closeCart} src="https://home-de-potts.s3.us-east-2.amazonaws.com/cartx.svg" />
-              <span className = 'col-7' style = {{'fontSize': '10px', left: '-10%'}}>{index + 1}. {item.name} Price: ${item.price}</span>
+              <img id = {item.id} onClick = {() => props.deleteCartItem(index)} style = {{left: '90%'}} style = {closeCart} src="https://home-de-potts.s3.us-east-2.amazonaws.com/cartx.svg" />
+              <span style = {{'fontSize': '10px', left: '-10%'}}>{index + 1}. {item.name} Price: ${item.price}</span>
             </div>
             ))}
           <hr/>
-          <div>Subtotal: ${props.cart.totalPrice}</div>
+          <div>Subtotal: ${Math.round(props.cart.totalPrice * 100)/100}</div>
           <div>Shipping: ${props.cart.numberOfItems * 1.99}</div>
           <div>Estimated Tax: ${tax}</div>
           <hr/>

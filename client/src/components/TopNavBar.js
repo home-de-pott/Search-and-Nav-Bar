@@ -7,7 +7,7 @@ const TopNavBar = (props) => {
 		'fontSize': '10px'
   }
   return (
-    <div>
+    <div className = 'd-none d-lg-block'>
     <nav className="navbar navbar-expand-lg navbar-light">
 			<div id="navbarSupportedContent">
 				<ul style = {listStyle} className="navbar-nav">

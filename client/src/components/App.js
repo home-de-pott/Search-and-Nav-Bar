@@ -95,18 +95,15 @@ export default class App extends React.Component {
 				detail: {id: e.target.id},
 			})
 		)
+		console.log('this is an event')
 		this.setState({showSuggest: false})
 	}
 
-	deleteCartItem(e) {
+	deleteCartItem(index) {
 		let newCart = this.state.cart;
-		for (let i = 0; i < newCart.cartList.length; i++){
-			if (newCart.cartList[i].id === e.target.id){
-				newCart.numberOfItems--;
-				newCart.totalPrice -= newCart.cartList[i].price;
-				newCart.cartList.splice(i, 1);
-			}
-		}
+		newCart.numberOfItems--;
+		newCart.totalPrice -= newCart.cartList[index].price;
+		newCart.cartList.splice(index, 1);
 		this.setState({cart: newCart})
 	}
 
@@ -127,7 +124,7 @@ export default class App extends React.Component {
 
 	handleCheckout() {
 		let newCart = {
-			itemList: [],
+			cartList: [],
 			cartClicked: false,
 			numberOfItems: 0,
 			totalPrice: 0

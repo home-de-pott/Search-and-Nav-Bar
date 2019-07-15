@@ -4,7 +4,7 @@ import Cart from './Cart.js'
 
 const Header = (props) => {
   const inputStyle = {
-    width: "600px",
+    width: "40%",
     height: '35px',
     border: '1px solid black'
   }
@@ -43,6 +43,7 @@ const Header = (props) => {
           <div style={{display: 'inline'}}>
             <span style={{display: 'inline'}} className = "input-group mb-3">
               <input style = {inputStyle} type = "text" placeholder = "What can we help you find today?"
+                onBlur = {() => setTimeout(props.loseFocusSearch, 150)}
                 onChange = {props.handleInputChange}/>
               <img className="input-group-addon img-fluid p-0 m-0" style = {imgStyle} onClick = {props.renderNewItem} 
                 src="https://home-de-potts.s3.us-east-2.amazonaws.com/button.png" />
