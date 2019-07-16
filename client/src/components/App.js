@@ -164,7 +164,7 @@ export default class App extends React.Component {
 		const shadeStyle = {
 			position: 'absolute',
 			height: '2000px',
-			width: '2000px',
+			width: '100%',
 			'backgroundColor': 'black',
 			top: '163px',
 			opacity: '.3'

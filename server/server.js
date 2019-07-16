@@ -17,9 +17,10 @@ app.listen(3050, ()=>console.log('listening on port 3050'));
 
 app.get('/allItems', (req, res) => {
   if (Object.keys(req.cookies).length){
-		db.getAllandCart(req.cookies.HomeDepotCookie, (data, cart) => {
-      res.send({data: data, cart: cart});
-    })
+    if (Object.keys(req.cookies.HomeDepotCookie).length){
+      db.getAllandCart(req.cookies.HomeDepotCookie, (data, cart) => {
+        res.send({data: data, cart: cart});
+      })}else {db.getAll((data) => res.cookie('HomeDepotCookie', crypto.randomBytes(20).toString('hex')).send({data: data}))}
 	} else {
       db.getAll((data) => res.cookie('HomeDepotCookie', crypto.randomBytes(20).toString('hex')).send({data: data}))
     }

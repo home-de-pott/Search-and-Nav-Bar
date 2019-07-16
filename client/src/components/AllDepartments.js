@@ -1,12 +1,15 @@
 import React from 'react';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 
 const AllDepartments = (props) => {
+  {/* <img style = {{position: 'absolute', left: '248px', top: '0px'}} src = {`https://home-de-potts.s3.us-east-2.amazonaws.com/${props.dropDownImage}.png`} height = "400px" />)  */}
   return (
     <div onMouseEnter = {props.handleShadeIn} onMouseLeave = {props.handleShadeOut}>
       <li className="nav-item dropdown dropdownMichael">
           <a style = {{fontSize: '14px'}} className="navBarMichael nav-link text-dark" href="#" id="navbarDropdown"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Departments</a>
-            <div className="dropdown-menu dropdown-menuMichael" aria-labelledby="navbarDropdown">
+            <div style = {{height: '450px'}} className="dropdown-menu dropdown-menuMichael" aria-labelledby="navbarDropdown">
               <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('1-1')} onMouseLeave = {() => props.setDropImg('')}>Appliances</a>
               <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('1-2')} onMouseLeave = {() => props.setDropImg('')}>Bath & Faucets</a>
               <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('1-3')} onMouseLeave = {() => props.setDropImg('')}>Blinds & Window Treatment</a>
@@ -27,8 +30,20 @@ const AllDepartments = (props) => {
               <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('1-18')} onMouseLeave = {() => props.setDropImg('')}>Tools</a>
               <div>
             {props.dropDownImage === '' ? (<></>) :(
-              <img style = {{position: 'absolute', left: '248px', top: '0px'}} src = {`https://home-de-potts.s3.us-east-2.amazonaws.com/${props.dropDownImage}.png`} height = "400px" />) 
-              }
+              <a style = {{position: 'relative', left: '200px', top: '-432px'}} className="dropdown-item" href="#"
+                  onMouseEnter = {() => props.setDropImg('1-18')} onMouseLeave = {() => props.setDropImg('')}>
+              
+              <Carousel autoPlay infiniteLoop showThumbs={false}>
+                <div>
+                    <img src="./assets/images/navbarimg/1-4.png" />
+                </div>
+                <div>
+                    <img src="./assets/images/navbarimg/1-5.png" />
+                </div>
+              </Carousel>
+              
+              </a>
+            )}
               </div>
             </div>
         </li>
