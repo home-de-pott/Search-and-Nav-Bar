@@ -46,7 +46,6 @@ let getAllandCart = (userCookie, cb) => {
   .then((data) => {
   cartList.find({cookie: userCookie})
   .then((results) => {
-    console.log(userCookie)
     cb(data, results)
   })
 })
