@@ -26,6 +26,7 @@ const NavBar = (props) => {
 						<AllDepartments handleShadeIn = {props.handleShadeIn} 
 														handleShadeOut = {props.handleShadeOut} 
 														dropDownImage = {props.dropDownImage}
+														imageClick = {props.imageClick}
 														setDropImg = {props.setDropImg}/>
 						<div style = {{width: '30px'}}></div>
 						<HomeDecor handleShadeIn = {props.handleShadeIn} handleShadeOut = {props.handleShadeOut}/>

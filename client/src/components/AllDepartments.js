@@ -12,7 +12,7 @@ const AllDepartments = (props) => {
             <div style = {{height: '450px'}} className="dropdown-menu dropdown-menuMichael" aria-labelledby="navbarDropdown">
               <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('Appliances')} onMouseLeave = {() => props.setDropImg('')}>Appliances</a>
               <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('Bath & Faucets')} onMouseLeave = {() => props.setDropImg('')}>Bath & Faucets</a>
-              <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('Blinds & Window Treatment')} onMouseLeave = {() => props.setDropImg('')}>Blinds & Window Treatment</a>
+              <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('Blinds & Window Treatements')} onMouseLeave = {() => props.setDropImg('')}>Blinds & Window Treatment</a>
               <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('Building Materials')} onMouseLeave = {() => props.setDropImg('')}>Building Materials</a>
               <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('Decor & Furniture')} onMouseLeave = {() => props.setDropImg('')}>Decor & Furniture</a>
               <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('Doors & Windows')} onMouseLeave = {() => props.setDropImg('')}>Doors & Windows</a>
@@ -29,24 +29,19 @@ const AllDepartments = (props) => {
               <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('Storage & Organization')} onMouseLeave = {() => props.setDropImg('')}>Storage & Organization</a>
               <a className="dropdown-item" href="#" onMouseEnter = {() => props.setDropImg('Tools')} onMouseLeave = {() => props.setDropImg('')}>Tools</a>
               <div>
-            {props.dropDownImage.length === 0 ? (<></>) :(
+            {props.dropDownImage.images.length === 0 ? (<></>) :(
               <a style = {{position: 'relative', left: '200px', top: '-432px'}} className="dropdown-item" href="#"
-                  onMouseEnter = {() => props.setDropImg('Appliances')} onMouseLeave = {() => props.setDropImg('')}>
+                  onMouseEnter = {() => props.setDropImg(props.dropDownImage.category)} onMouseLeave = {() => props.setDropImg('')}>
               
-              <Carousel autoPlay infiniteLoop showThumbs={false}>
-                {props.dropDownImage.map((item) => {
-                  return (
-                    <div>
-                      <img src={`https://home-de-potts.s3.us-east-2.amazonaws.com/items/${item}-0.jpg`} />
+              <Carousel stopOnHover = {false} autoPlay infiniteLoop showThumbs={false} width = {'444px'}>
+                {props.dropDownImage.images.map((item) => {
+                  return(
+                    <div key = {Math.random()}>
+                      <img onClick = {props.imageClick(item)} src={`https://home-de-potts.s3.us-east-2.amazonaws.com/items/${item}-0.jpg`} />
                     </div>
-                  )
+                    )
                 })}
-                
-                <div>
-                    <img src="./assets/images/navbarimg/1-5.png" />
-                </div>
               </Carousel>
-              
               </a>
             )}
               </div>

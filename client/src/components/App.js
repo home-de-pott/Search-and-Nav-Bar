@@ -12,7 +12,7 @@ export default class App extends React.Component {
 				name: '20 oz. Hammer'
 			},
 			itemList: [],
-			dropDownImage: '',
+			dropDownImage: {category: '', images: []},
 			itemHovered: false,
 			inputValue: '',
 			suggestList: [],
@@ -56,7 +56,7 @@ export default class App extends React.Component {
 				if (item.name.length > 40){
 					itemList.push({name: item.name.substring(0, 40) + "...", id: item.id, price: item.price, category: item.category});
 				} else {
-				itemList.push({name: item.name, id: item.id, price: item.price})}
+				itemList.push({name: item.name, id: item.id, price: item.price, category: item.category})}
 			});
 			this.setState({itemList: itemList});
 			if (results.data.cart){
@@ -124,6 +124,14 @@ export default class App extends React.Component {
 		this.setState({showSuggest: false})
 	}
 
+	imageClick(id) {
+		window.dispatchEvent(
+			new CustomEvent('getProduct', {
+				detail: {id: id},
+			})
+		)
+	}
+
 	deleteCartItem(index) {
 		let newCart = this.state.cart;
 		newCart.numberOfItems--;
@@ -133,11 +141,11 @@ export default class App extends React.Component {
 	}
 
 	setDropImg(img) {
-		let tempImage = [];
+		let tempImage = {images: [], category: img};
 		if (img !== ''){
 			this.state.itemList.map((item) => {
 				if (item.category === img){
-					tempImage.push(item.id);
+					tempImage.images.push(item.id);
 				}
 			})
 		}
@@ -194,6 +202,7 @@ export default class App extends React.Component {
 								loseFocusSearch = {this.loseFocusSearch.bind(this)}
 								handleCheckout = {this.handleCheckout.bind(this)}/>
 				<NavBar item = {this.state.currentItem} 
+								imageClick = {this.imageClick.bind(this)}
 								handleShadeIn = {this.handleShadeIn.bind(this)} 
 								handleShadeOut = {this.handleShadeOut.bind(this)}
 								dropDownImage = {this.state.dropDownImage}
