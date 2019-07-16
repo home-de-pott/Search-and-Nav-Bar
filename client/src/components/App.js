@@ -46,7 +46,7 @@ export default class App extends React.Component {
 			}
 			this.setState({cart: newCart});
 			axios.post('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/addToCart', {tempCart})
-			.then((res)=>console.log(res.data))
+			.then((res)=>console.log('item posted'))
 		})
 	
 		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/allItems')

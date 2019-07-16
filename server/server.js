@@ -29,7 +29,7 @@ app.get('/allItems', (req, res) => {
 
 app.post('/addToCart', (req, res) => {
   db.addToCart({item: req.body.tempCart, cookie: req.cookies.HomeDepotCookie}, (response)=> {
-    res.send(req)
+    res.send(req.cookies)
   })
 })
 
