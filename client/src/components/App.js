@@ -42,11 +42,11 @@ export default class App extends React.Component {
 				}
 			}
 			this.setState({cart: newCart});
-			axios.post('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com//addToCart', {tempCart})
+			axios.post('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/addToCart', {tempCart})
 			.then(()=>console.log('item posted'))
 		})
 	
-		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com//allItems')
+		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/allItems')
 		.then((results) => {
 			let itemList = [];
 			results.data.data.map(item => {
@@ -138,7 +138,7 @@ export default class App extends React.Component {
 	}
 
 	handleCheckout() {
-		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com//checkout')
+		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/checkout')
 		.then((res) => {console.log(res)
 			let newCart = {
 				cartList: [],
