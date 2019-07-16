@@ -31,7 +31,7 @@ const AllDepartments = (props) => {
               <div>
             {props.dropDownImage.length === 0 ? (<></>) :(
               <a style = {{position: 'relative', left: '200px', top: '-432px'}} className="dropdown-item" href="#"
-                  onMouseEnter = {() => props.setDropImg('1-18')} onMouseLeave = {() => props.setDropImg('')}>
+                  onMouseEnter = {() => props.setDropImg('Appliances')} onMouseLeave = {() => props.setDropImg('')}>
               
               <Carousel autoPlay infiniteLoop showThumbs={false}>
                 {props.dropDownImage.map((item) => {
