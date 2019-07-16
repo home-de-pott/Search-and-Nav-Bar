@@ -19,8 +19,9 @@ app.get('/allItems', (req, res) => {
   if (Object.keys(req.cookies).length){
     if (Object.keys(req.cookies.HomeDepotCookie)){
       db.getAllandCart(req.cookies.HomeDepotCookie, (data, cart) => {
-        res.send({data: data, cart: cart});
-      })}else {db.getAll((data) => res.cookie('HomeDepotCookie', crypto.randomBytes(20).toString('hex')).send({data: data}))}
+        res.send({data: data, cart: cart})
+      })}else {
+        db.getAll((data) => res.cookie('HomeDepotCookie', crypto.randomBytes(20).toString('hex')).send({data: data}))}
 	} else {
       db.getAll((data) => res.cookie('HomeDepotCookie', crypto.randomBytes(20).toString('hex')).send({data: data}))
     }
