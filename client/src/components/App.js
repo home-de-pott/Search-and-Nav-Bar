@@ -27,6 +27,9 @@ export default class App extends React.Component {
 	}
 
 	componentDidMount() {
+		appendScript("https://code.jquery.com/jquery-3.3.1.slim.min.js");
+		appendScript("https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js");
+		appendScript("https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js");
 		window.addEventListener('addToCart', (e) => {
 			let newCart = this.state.cart;
 			let tempCart = {}
@@ -68,6 +71,13 @@ export default class App extends React.Component {
 		})
 	}
 	
+	appendScript(url) {
+		const script = document.createElement('script');
+		script.src = url;
+		script.async = true;
+		document.body.appendChild(script);
+	}
+
 	handleShadeIn(e) {
 		this.setState({itemHovered: true})
 	}
