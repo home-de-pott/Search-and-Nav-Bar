@@ -29,26 +29,42 @@ export default class App extends React.Component {
 	componentDidMount() {
 		window.addEventListener('addToCart', (e) => {
 			let newCart = this.state.cart;
+			let tempCart = {}
 			newCart.numberOfItems++;
 			for (let i = 0; i < this.state.itemList.length; i++){
 				if (parseInt(this.state.itemList[i].id) == e.detail.id){
+					tempCart.name = this.state.itemList[i].name;
+					tempCart.id = e.detail.id;
+					tempCart.price = this.state.itemList[i].price;
 					newCart.totalPrice += this.state.itemList[i].price;
 					newCart.cartList.push({id: this.state.itemList[i].id, name: this.state.itemList[i].name, price: this.state.itemList[i].price});
 					break;
 				}
 			}
 			this.setState({cart: newCart});
+			axios.post('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com//addToCart', {tempCart})
+			.then(()=>console.log('item posted'))
 		})
-		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/allItems')
+	
+		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com//allItems')
 		.then((results) => {
 			let itemList = [];
-			results.data.map(item => {
+			results.data.data.map(item => {
 				if (item.name.length > 40){
 					itemList.push({name: item.name.substring(0, 40) + "...", id: item.id, price: item.price});
 				} else {
 				itemList.push({name: item.name, id: item.id, price: item.price})}
 			});
 			this.setState({itemList: itemList});
+			if (results.data.cart){
+				let newCart = this.state.cart;
+				results.data.cart.map((item => {
+					newCart.cartList.push({id: item.id, price: item.price, name: item.name})
+					newCart.totalPrice += item.price;
+				}))
+				newCart.numberOfItems = newCart.cartList.length;
+				this.setState({cart: newCart});
+			}
 		})
 	}
 	
@@ -95,7 +111,6 @@ export default class App extends React.Component {
 				detail: {id: e.target.id},
 			})
 		)
-		console.log('this is an event')
 		this.setState({showSuggest: false})
 	}
 
@@ -123,13 +138,16 @@ export default class App extends React.Component {
 	}
 
 	handleCheckout() {
-		let newCart = {
-			cartList: [],
-			cartClicked: false,
-			numberOfItems: 0,
-			totalPrice: 0
-		}
-		this.setState({itemHovered: false, cart: newCart})
+		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com//checkout')
+		.then((res) => {console.log(res)
+			let newCart = {
+				cartList: [],
+				cartClicked: false,
+				numberOfItems: 0,
+				totalPrice: 0
+			}
+			this.setState({itemHovered: false, cart: newCart})
+		});
 	}
 	
 	render() {

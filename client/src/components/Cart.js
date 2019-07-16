@@ -24,9 +24,6 @@ const Cart = (props) => {
     <>
       <span onClick = {props.cartClick}>Cart| {props.cart.numberOfItems} items </span>
       <img src="https://home-de-potts.s3.us-east-2.amazonaws.com/cart.png" height = "35px" onClick = {props.cartClick}/>
-      
-      
-
       {props.cart.cartClicked ? (
         <div style = {cartStyle}>
           <img onClick = {props.cartClick} style = {closeCart} src="https://home-de-potts.s3.us-east-2.amazonaws.com/cartx.svg" />
@@ -47,7 +44,11 @@ const Cart = (props) => {
                 <td>{index + 1}</td>
                 <td>{item.name}</td>
                 <td>${item.price.toFixed(2)}</td>
-                <td><img id = {item.id} onClick = {() => props.deleteCartItem(index)}  style = {{position: 'relative',height: '15px',width: '15px'}} src="https://home-de-potts.s3.us-east-2.amazonaws.com/trashcan.png" /></td>
+                <td>
+                  <img id = {item.id} onClick = {() => props.deleteCartItem(index)}  
+                    style = {{position: 'relative',height: '15px',width: '15px'}} 
+                    src="https://home-de-potts.s3.us-east-2.amazonaws.com/trashcan.png" />
+                </td>
               </tr>
               ))}
             </tbody>
