@@ -4,7 +4,8 @@ mongoose.connect('mongodb+srv://Michael:mongodepot@cluster0-ibbip.mongodb.net/ho
 let itemSchema = mongoose.Schema({
   id: String,
   name: String,
-  price: Number
+  price: Number,
+  category: String
 });
 
 let cartSchema = mongoose.Schema({
@@ -17,14 +18,14 @@ let cartSchema = mongoose.Schema({
 let itemList = mongoose.model('ItemList', itemSchema);
 let cartList = mongoose.model('Cart', cartSchema);
 
-// let save = () => {
-//   allItems.map((newItem)=>{
-//     let item = new itemList(newItem);
-//     item.save(() => {
-//       console.log('item saved to database');
-//     })
-//   })
-// }
+let save = () => {
+  allItems.map((newItem)=>{
+    let item = new itemList(newItem);
+    item.save(() => {
+      console.log('item saved to database');
+    })
+  })
+}
 
 let addToCart = (item, cb) => {
   let cart = new cartList({

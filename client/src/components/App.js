@@ -46,7 +46,7 @@ export default class App extends React.Component {
 			}
 			this.setState({cart: newCart});
 			axios.post('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/addToCart', {tempCart})
-			.then(()=>console.log('item posted'))
+			.then((res)=>console.log(res))
 		})
 	
 		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/allItems')
@@ -54,7 +54,7 @@ export default class App extends React.Component {
 			let itemList = [];
 			results.data.data.map(item => {
 				if (item.name.length > 40){
-					itemList.push({name: item.name.substring(0, 40) + "...", id: item.id, price: item.price});
+					itemList.push({name: item.name.substring(0, 40) + "...", id: item.id, price: item.price, category: item.category});
 				} else {
 				itemList.push({name: item.name, id: item.id, price: item.price})}
 			});
@@ -133,7 +133,15 @@ export default class App extends React.Component {
 	}
 
 	setDropImg(img) {
-		this.setState({dropDownImage: img})
+		let tempImage = [];
+		if (img !== ''){
+			this.state.itemList.map((item) => {
+				if (item.category === img){
+					tempImage.push(item.id);
+				}
+			})
+		}
+		this.setState({dropDownImage: tempImage})
 	}
 
 	cartClick() {
