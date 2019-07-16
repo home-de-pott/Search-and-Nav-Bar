@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://Michael:mongodepot@cluster0-ibbip.mongodb.net/homedepot?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://Michael:@cluster0-ibbip.mongodb.net/homedepot?retryWrites=true&w=majority');
 
 let itemSchema = mongoose.Schema({
   id: String,
@@ -10,14 +10,14 @@ let itemSchema = mongoose.Schema({
 
 let itemList = mongoose.model('ItemList', itemSchema);
 
-let save = () => {
-  allItems.map((newItem)=>{
-    let item = new itemList(newItem);
-    item.save(() => {
-      console.log('item saved to database');
-    })
-  })
-}
+// let save = () => {
+//   allItems.map((newItem)=>{
+//     let item = new itemList(newItem);
+//     item.save(() => {
+//       console.log('item saved to database');
+//     })
+//   })
+// }
 
 let getAll = (cb) => {
   itemList.find()
