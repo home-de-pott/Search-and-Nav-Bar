@@ -21,7 +21,7 @@ app.get('/allItems', (req, res) => {
       res.send({data: data, cart: cart});
     })
 	} else {
-      db.getAll((data) => res.cookie('HomeDepotCookie', crypto.randomBytes(20).toString('hex')).send(data))
+      db.getAll((data) => res.cookie('HomeDepotCookie', crypto.randomBytes(20).toString('hex')).send({data: data}))
     }
 });
 
