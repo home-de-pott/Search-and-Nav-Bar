@@ -1,4 +1,5 @@
 import React from 'react';
+import { Table } from 'react-bootstrap';
 
 const Cart = (props) => {
   let cartStyle = {
@@ -23,17 +24,41 @@ const Cart = (props) => {
     <>
       <span onClick = {props.cartClick}>Cart| {props.cart.numberOfItems} items </span>
       <img src="https://home-de-potts.s3.us-east-2.amazonaws.com/cart.png" height = "35px" onClick = {props.cartClick}/>
+      
+      
+
       {props.cart.cartClicked ? (
         <div style = {cartStyle}>
           <img onClick = {props.cartClick} style = {closeCart} src="https://home-de-potts.s3.us-east-2.amazonaws.com/cartx.svg" />
           <h4 style = {{leftPadding: '10%'}}>Your Order</h4><hr/>
           <div>Cart Items</div>
-          {props.cart.cartList.map((item, index) => (
+          <Table striped bordered hover size="sm">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Item Name</th>
+                <th>Price</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            {props.cart.cartList.map((item, index) => (
+              <tr key = {Math.random()}>
+                <td>{index + 1}</td>
+                <td>{item.name}</td>
+                <td>${item.price.toFixed(2)}</td>
+                <td><img id = {item.id} onClick = {() => props.deleteCartItem(index)}  style = {{position: 'relative',height: '15px',width: '15px'}} src="https://home-de-potts.s3.us-east-2.amazonaws.com/trashcan.png" /></td>
+              </tr>
+              ))}
+            </tbody>
+          </Table>
+
+          {/* {props.cart.cartList.map((item, index) => (
             <div key = {Math.random()} className = 'container-fluid'>
               <img id = {item.id} onClick = {() => props.deleteCartItem(index)} style = {{left: '90%'}} style = {closeCart} src="https://home-de-potts.s3.us-east-2.amazonaws.com/cartx.svg" />
               <span style = {{'fontSize': '10px', left: '-10%'}}>{index + 1}. {item.name} Price: ${item.price}</span>
             </div>
-            ))}
+            ))} */}
           <hr/>
           <div>Subtotal: ${Math.round(props.cart.totalPrice * 100)/100}</div>
           <div>Shipping: ${props.cart.numberOfItems * 1.99}</div>

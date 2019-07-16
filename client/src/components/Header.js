@@ -19,7 +19,7 @@ const Header = (props) => {
     position: 'absolute',
     left: '275px',
     top: '35px',
-    width: '600px',
+    width: '580px',
     'backgroundColor': 'white',
     'opacity': 1,
     'maxHeight': '400px',
