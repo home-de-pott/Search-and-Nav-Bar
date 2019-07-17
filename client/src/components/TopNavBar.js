@@ -3,7 +3,7 @@ import React from 'react';
 const TopNavBar = (props) => {
   const listStyle = {
 		position: 'relative',
-		left: '150%',
+		left: '90%',
 		'fontSize': '10px'
   }
   return (

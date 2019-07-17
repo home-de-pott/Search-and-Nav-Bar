@@ -9,7 +9,7 @@ const Cart = (props) => {
     width: '400px',
     backgroundColor: 'white',
     padding: '5px',
-    zIndex: '1'
+    zIndex: '100'
   }
   let closeCart = {
     position: 'relative',
