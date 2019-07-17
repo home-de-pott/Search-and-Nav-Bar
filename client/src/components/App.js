@@ -202,7 +202,6 @@ export default class App extends React.Component {
 		if (type === 'userLogin'){
 			axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/userLogin', {params: {username, password}})
 			.then((res) => {
-				console.log(res.data)
 				if (res.data === 'Logged In') {
 					newLogin.name = username;
 					newLogin.showLoginScreen = false;
@@ -218,7 +217,6 @@ export default class App extends React.Component {
 		} else if (type === 'newAccount'){
 			axios.post('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/newAccount', {username, password})
 			.then((res) => {
-				console.log(res.data)
 				if (res.data === 'Logged In') {
 					newLogin.name = username;
 					newLogin.showLoginScreen = false;
