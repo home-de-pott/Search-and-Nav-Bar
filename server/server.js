@@ -62,3 +62,15 @@ app.post('/newAccount', (req, res) => {
     res.send(response);
   })
 })
+
+app.post('/previousViews', (req, res) => {
+  db.previousViews(req.body, (response) => {
+    res.send(response)
+  })
+})
+
+app.get('/getUserViews', (req, res) => {
+  db.getUserViews((data) => {
+    res.send(data)
+  })
+})

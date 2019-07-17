@@ -16,7 +16,7 @@ export default function Login(props) {
   return (
     <>
     {props.login.name === '' ? (<img className = 'loginMichael' onClick = {props.showLogin} src="https://home-de-potts.s3.us-east-2.amazonaws.com/myAccount.png" height = "40px" />) : (
-      <></>
+      <span>{props.login.name}'s Account<img className = 'loginMichael' onClick = {props.showLogin} src="https://home-de-potts.s3.us-east-2.amazonaws.com/loggedIn.png" height = "40px" /></span>
     )}
     {props.login.showLoginScreen ? (
       <div style = {cartStyle}>

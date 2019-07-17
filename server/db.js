@@ -104,4 +104,19 @@ const login = (creds, cb) => {
   })
 }
 
-module.exports = { getAll, addToCart, getAllandCart, newAccount, login };
+const previousViews = (data, cb) => {
+  let newView = new userViews({
+    username: data.username,
+    id: data.id
+  })
+  newView.save((cb('savedView')))
+}
+
+const getUserViews = (cb) => {
+  userViews.find()
+  .then((data) => {
+    cb(data);
+  })
+}
+
+module.exports = { getAll, addToCart, getAllandCart, newAccount, login, previousViews, getUserViews };

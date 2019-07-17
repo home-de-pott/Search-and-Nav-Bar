@@ -36,6 +36,31 @@ export default class App extends React.Component {
 		this.appendScript("https://code.jquery.com/jquery-3.3.1.slim.min.js");
 		this.appendScript("https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js");
 		this.appendScript("https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js");
+		window.addEventListener('getProduct', (e) => {
+			let newLogin = this.state.login;
+				let addNewView = false;
+				if (this.state.login.name !== ''){
+					for (let i = 0; i < newLogin.previouslyViewed.length; i++){
+						if (newLogin.previouslyViewed[i] === e.detail.id){
+							break;
+						}
+					}
+					addNewView = true;
+				}
+				if (addNewView){
+					newLogin.previouslyViewed.push(e.detail.id)
+					this.setState({login: newLogin})
+					axios.post('/previousViews', {username: this.state.login.name, id: e.detail.id})
+					.then(() => {
+						window.dispatchEvent(
+							new CustomEvent('previousUserViews', {
+								detail: {ids: this.state.login.previouslyViewed},
+							})
+						)
+					})
+				}
+		})
+
 		window.addEventListener('addToCart', (e) => {
 			let newCart = this.state.cart;
 			let tempCart = {}
@@ -52,7 +77,7 @@ export default class App extends React.Component {
 			}
 			this.setState({cart: newCart});
 			axios.post('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/addToCart', {tempCart}, {withCredentials: true})
-			.then(()=>console.log('item posted'))
+			.then(()=> {console.log('success')})
 		})
 	
 		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/allItems', {withCredentials: true})
@@ -205,7 +230,19 @@ export default class App extends React.Component {
 				if (res.data === 'Logged In') {
 					newLogin.name = username;
 					newLogin.showLoginScreen = false;
-					this.setState({login: newLogin})
+						axios.get('/getUserViews')
+						.then((response) => {
+							for (let i = 0; i < response.data.length; i++){
+								newLogin.previouslyViewed.push(response.data[i].id)
+							}
+							window.dispatchEvent(
+								new CustomEvent('previousUserViews', {
+									detail: {ids: newLogin.previouslyViewed},
+								})
+							)
+							this.setState({login: newLogin })
+							console.log(this.state.login.previouslyViewed)
+						})
 				} else if(res.data === 'username does not exist'){
 					newLogin.error = res.data;
 					this.setState({login: newLogin})
