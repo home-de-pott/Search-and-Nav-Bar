@@ -130,6 +130,8 @@ export default class App extends React.Component {
 				detail: {id: id},
 			})
 		)
+		let newDropDown = {category: '', images: []}
+		this.setState({itemHovered: false, dropDownImage: newDropDown})
 	}
 
 	deleteCartItem(index) {
@@ -183,6 +185,7 @@ export default class App extends React.Component {
 			width: '100%',
 			'backgroundColor': 'black',
 			top: '163px',
+			'zIndex': '99',
 			opacity: '.3'
 		}
 		return (
