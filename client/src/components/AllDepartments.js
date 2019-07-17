@@ -36,8 +36,8 @@ const AllDepartments = (props) => {
               <Carousel stopOnHover = {false} autoPlay infiniteLoop showThumbs={false} width = {'444px'}>
                 {props.dropDownImage.images.map((item) => {
                   return(
-                    <div key = {Math.random()}>
-                      <img onClick = {props.imageClick(item)} src={`https://home-de-potts.s3.us-east-2.amazonaws.com/items/${item}-0.jpg`} />
+                    <div onClick = {() => props.imageClick(item)} key = {Math.random()}>
+                      <img src={`https://home-de-potts.s3.us-east-2.amazonaws.com/items/${item}-0.jpg`} />
                     </div>
                     )
                 })}
