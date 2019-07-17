@@ -1,6 +1,7 @@
 import React from 'react';
 import TopNavBar from './TopNavBar.js';
 import Cart from './Cart.js'
+import Login from './Login.js'
 
 const Header = (props) => {
   const inputStyle = {
@@ -52,11 +53,12 @@ const Header = (props) => {
             {props.showSuggest === true ? (
               <div style = {listStyle} className = "border border-dark">
                 {props.suggestList.map((item) => <li id = {item.id} key = {item.id} className = "dropdown-item" 
-                                                onClick = {props.renderNewItem}>{item.name}</li>)}
+                                                onClick = {props.renderNewItem}>{item.name} <img style = {{position: 'absolute', left: '90%'}}height = '40px' src={`https://home-de-potts.s3.us-east-2.amazonaws.com/items/${item.id}-0.jpg`} /></li>)}
               </div>
             ) : (<></>)}
           <span style = {{padding: '30px'}}></span>
-          <img src="https://home-de-potts.s3.us-east-2.amazonaws.com/myAccount.png" height = "40px" />
+          <Login login = {props.login}
+                  showLogin = {props.showLogin}/>
           <span style = {{padding: '30px'}}></span>
           <Cart cart = {props.cart} itemHoverd = {props.itemHovered} 
                 cartClick = {props.cartClick}

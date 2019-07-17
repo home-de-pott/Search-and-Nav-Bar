@@ -22,6 +22,11 @@ export default class App extends React.Component {
 				cartClicked: false,
 				numberOfItems: 0,
 				totalPrice: 0
+			},
+			login: {
+				name: '',
+				previouslyViewed: [],
+				showLoginScreen: false
 			}
 		}
 	}
@@ -177,6 +182,18 @@ export default class App extends React.Component {
 			this.setState({itemHovered: false, cart: newCart})
 		});
 	}
+
+	showLogin() {
+		let login = this.state.login;
+		let itemHovered = true;
+		if (this.state.login.showLoginScreen){
+			login.showLoginScreen = false;
+			itemHovered = false;
+		} else {
+			login.showLoginScreen = true;
+		}
+		this.setState({login, itemHovered})
+	}
 	
 	render() {
 		const shadeStyle = {
@@ -191,6 +208,8 @@ export default class App extends React.Component {
 		return (
 			<div>
 				<Header inputValue = {this.state.inputValue}
+								login = {this.state.login}
+								showLogin = {this.showLogin.bind(this)}
 								suggestList = {this.state.suggestList}
 								itemList = {this.state.itemList}
 								handleInputChange = {this.handleInputChange.bind(this)} 

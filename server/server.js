@@ -5,13 +5,26 @@ const cors = require('cors');
 const path = require('path');
 const db = require('./db');
 const crypto = require("crypto");
+const whitelist = ['http://localhost:3050', 'http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com'];
+
+const corsOptions = {
+  credentials: true,
+  origin: function(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
 const app = express();
 
 app.use(cookieParser())
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.static(path.join(__dirname, '../dist')));
 app.use(parser.json());
+
 
 app.listen(3050, ()=>console.log('listening on port 3050'));
 
