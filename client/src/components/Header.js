@@ -58,7 +58,8 @@ const Header = (props) => {
             ) : (<></>)}
           <span style = {{padding: '30px'}}></span>
           <Login login = {props.login}
-                  showLogin = {props.showLogin}/>
+                  showLogin = {props.showLogin}
+                  userLogin = {props.userLogin}/>
           <span style = {{padding: '30px'}}></span>
           <Cart cart = {props.cart} itemHoverd = {props.itemHovered} 
                 cartClick = {props.cartClick}

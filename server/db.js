@@ -8,26 +8,26 @@ let itemSchema = mongoose.Schema({
   category: String
 });
 
-let cartSchema = mongoose.Schema({
+const cartSchema = mongoose.Schema({
   cookie: String,
   id: Number,
   price: Number,
   name: String
 })
 
-let itemList = mongoose.model('ItemList', itemSchema);
-let cartList = mongoose.model('Cart', cartSchema);
+const itemList = mongoose.model('ItemList', itemSchema);
+const cartList = mongoose.model('Cart', cartSchema);
 
-// let save = () => {
+// const save = () => {
 //   allItems.map((newItem)=>{
-//     let item = new itemList(newItem);
+//     const item = new itemList(newItem);
 //     item.save(() => {
 //       console.log('item saved to database');
 //     })
 //   })
 // }
 
-let addToCart = (item, cb) => {
+const addToCart = (item, cb) => {
   let cart = new cartList({
     cookie: item.cookie,
     id: item.item.id,
@@ -37,12 +37,12 @@ let addToCart = (item, cb) => {
   cart.save(() => {cb('item saved')})
 }
 
-let getAll = (cb) => {
+const getAll = (cb) => {
   itemList.find()
   .then((data) => cb(data))
 }
 
-let getAllandCart = (userCookie, cb) => {
+const getAllandCart = (userCookie, cb) => {
   itemList.find()
   .then((data) => {
   cartList.find({cookie: userCookie})
@@ -52,4 +52,12 @@ let getAllandCart = (userCookie, cb) => {
 })
 }
 
-module.exports = { getAll, addToCart, getAllandCart };
+const newAccount = (creds) => {
+  console.log(creds)
+}
+
+const login = (creds) => {
+  console.log(creds)
+}
+
+module.exports = { getAll, addToCart, getAllandCart, newAccount, login };

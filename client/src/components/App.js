@@ -26,7 +26,8 @@ export default class App extends React.Component {
 			login: {
 				name: '',
 				previouslyViewed: [],
-				showLoginScreen: false
+				showLoginScreen: false,
+				error: ''
 			}
 		}
 	}
@@ -50,11 +51,11 @@ export default class App extends React.Component {
 				}
 			}
 			this.setState({cart: newCart});
-			axios.post('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/addToCart', {tempCart})
+			axios.post('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/addToCart', {tempCart}, {withCredentials: true})
 			.then(()=>console.log('item posted'))
 		})
 	
-		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/allItems')
+		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/allItems', {withCredentials: true})
 		.then((results) => {
 			let itemList = [];
 			results.data.data.map(item => {
@@ -171,7 +172,7 @@ export default class App extends React.Component {
 	}
 
 	handleCheckout() {
-		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/checkout')
+		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/checkout', {withCredentials: true})
 		.then((res) => {console.log(res)
 			let newCart = {
 				cartList: [],
@@ -193,6 +194,16 @@ export default class App extends React.Component {
 			login.showLoginScreen = true;
 		}
 		this.setState({login, itemHovered})
+	}
+
+	userLogin(username, password, type) {
+		if (type === 'login'){
+			axios.get('/userLogin', {username, password})
+			.then((res) => console.log(res));
+		} else if (type === 'newAccount'){
+			axios.post('/newUser', {username, password})
+			.then((res) => console.log(res));
+		}
 	}
 	
 	render() {
@@ -219,6 +230,7 @@ export default class App extends React.Component {
 								itemHoverd = {this.state.itemHovered}
 								cartClick = {this.cartClick.bind(this)}
 								cart = {this.state.cart}
+								userLogin = {this.userLogin.bind(this)}
 								deleteCartItem = {this.deleteCartItem.bind(this)}
 								loseFocusCart = {this.loseFocusCart.bind(this)}
 								loseFocusSearch = {this.loseFocusSearch.bind(this)}

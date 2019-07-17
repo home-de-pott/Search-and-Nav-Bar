@@ -5,7 +5,7 @@ const cors = require('cors');
 const path = require('path');
 const db = require('./db');
 const crypto = require("crypto");
-const whitelist = ['http://localhost:3050', 'http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com'];
+const whitelist = ['http://localhost:3050', 'http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com', 'http://homedepot.us-east-2.elasticbeanstalk.com'];
 
 const corsOptions = {
   credentials: true,
@@ -50,3 +50,13 @@ app.get('/checkout', (req, res) => {
   res.cookie('HomeDepotCookie', req.cookies.HomeDepotCookie, {maxAge: 0});
 	res.send('purchase finished and cookies cleared');
 });
+
+app.get('/login', (req, res) => {
+  res.send('success')
+})
+
+app.post('/newAccount', (req, res) => {
+  db.newAccount(req.body.tempCart, (response) => {
+    res.send(response);
+  })
+})
