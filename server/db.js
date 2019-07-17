@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+
 mongoose.connect('mongodb+srv://Michael:mongodepot@cluster0-ibbip.mongodb.net/homedepot?retryWrites=true&w=majority');
+
+const saltRounds = 10;
 
 let itemSchema = mongoose.Schema({
   id: String,
@@ -15,8 +19,20 @@ const cartSchema = mongoose.Schema({
   name: String
 })
 
+const usersSchema = mongoose.Schema({
+  username: String,
+  password: String
+})
+
+const userViewsSchema = mongoose.Schema({
+  username: String,
+  id: Number
+})
+
 const itemList = mongoose.model('ItemList', itemSchema);
 const cartList = mongoose.model('Cart', cartSchema);
+const usersList = mongoose.model('UserList', usersSchema);
+const userViews = mongoose.model('UserViews', userViewsSchema);
 
 // const save = () => {
 //   allItems.map((newItem)=>{
@@ -52,12 +68,40 @@ const getAllandCart = (userCookie, cb) => {
 })
 }
 
-const newAccount = (creds) => {
-  console.log(creds)
+const newAccount = (creds, cb) => {
+  usersList.find({username: creds.username})
+  .then((data) => {
+    if (data.length === 0){
+      bcrypt.hash(creds.password, saltRounds, function(err, hash) {
+        let newUser = new usersList({
+          username: creds.username,
+          password: hash
+        })
+        newUser.save(() => cb('Logged In'))
+      });
+    } else {
+      cb('username exists');
+    }
+  })
 }
 
-const login = (creds) => {
-  console.log(creds)
+const login = (creds, cb) => {
+  usersList.find({username: creds.username})
+  .then((data) => {
+    if (data.length === 0){
+      cb('username does not exist');
+      return;
+    } else {
+      bcrypt.compare(creds.password, data[0].password, function(err, res) {
+        if (res) {
+          cb('Logged In');
+          return;
+        } else {
+          cb('Password incorrect')
+        }
+      });
+    }
+  })
 }
 
 module.exports = { getAll, addToCart, getAllandCart, newAccount, login };

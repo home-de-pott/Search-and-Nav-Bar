@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function Login(props) {
   let cartStyle = {
@@ -10,8 +10,9 @@ export default function Login(props) {
     padding: '5px',
     zIndex: '100'
   }
-  //const [count, setCount] = useState(0);
-
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  () => setCount(count + 1)
   return (
     <>
     {props.login.name === '' ? (<img className = 'loginMichael' onClick = {props.showLogin} src="https://home-de-potts.s3.us-east-2.amazonaws.com/myAccount.png" height = "40px" />) : (
@@ -20,17 +21,18 @@ export default function Login(props) {
     {props.login.showLoginScreen ? (
       <div style = {cartStyle}>
         <form>
-          <div class="form-group">
-            <label for="exampleInputEmail1">UserName</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter UserName" />
+          <div className="form-group">
+            <label>UserName</label>
+            <input onChange = {(e) => setUsername(e.target.value)} type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter UserName" />
           </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <div className="form-group">
+            <label>Password</label>
+            <input onChange = {(e) => setPassword(e.target.value)} type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+            <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+          {props.login.error === '' ? (<></>) : (<div style = {{fontSize: '10px', color: 'red'}}>{props.login.error}</div>)}
           </div>
-          <button onClick = {() => props.userLogin('newUser')} type="submit" class="btn btn-primary">New Account</button>
-          <button onClick = {() => props.userLogin('userLogin')} style = {{position: 'relative', left: '50%'}} type="submit" class="btn btn-primary">Login</button>
+          <button onClick = {() => props.userLogin(username, password, 'newAccount')} className="btn btn-primary">New Account</button>
+          <button onClick = {() => props.userLogin(username, password, 'userLogin')} style = {{position: 'relative', left: '50%'}} className="btn btn-primary">Login</button>
         </form>
       </div>
       ) : (<></>)}

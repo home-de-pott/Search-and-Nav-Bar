@@ -197,12 +197,37 @@ export default class App extends React.Component {
 	}
 
 	userLogin(username, password, type) {
-		if (type === 'login'){
-			axios.get('/userLogin', {username, password})
-			.then((res) => console.log(res));
+		event.preventDefault()
+		let newLogin = this.state.login;
+		if (type === 'userLogin'){
+			axios.get('/userLogin', {params: {username, password}})
+			.then((res) => {
+				console.log(res.data)
+				if (res.data === 'Logged In') {
+					newLogin.name = username;
+					newLogin.showLoginScreen = false;
+					this.setState({login: newLogin})
+				} else if(res.data === 'username does not exist'){
+					newLogin.error = res.data;
+					this.setState({login: newLogin})
+				}else if(res.data === 'Password incorrect'){
+					newLogin.error = res.data;
+					this.setState({login: newLogin})
+				}
+			});
 		} else if (type === 'newAccount'){
-			axios.post('/newUser', {username, password})
-			.then((res) => console.log(res));
+			axios.post('/newAccount', {username, password})
+			.then((res) => {
+				console.log(res.data)
+				if (res.data === 'Logged In') {
+					newLogin.name = username;
+					newLogin.showLoginScreen = false;
+					this.setState({login: newLogin})
+				} else if(res.data === 'username exists'){
+					newLogin.error = res.data;
+					this.setState({login: newLogin})
+				}
+			});
 		}
 	}
 	
