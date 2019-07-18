@@ -51,13 +51,7 @@ export default class App extends React.Component {
 					newLogin.previouslyViewed.push(e.detail.id)
 					this.setState({login: newLogin});
 					axios.post(`${this.state.site}/previousViews`, {username: this.state.login.name, id: e.detail.id}, {withCredentials: true})
-					.then(() => {
-						window.dispatchEvent(
-							new CustomEvent('previousUserViews', {
-								detail: {ids: this.state.login.previouslyViewed},
-							})
-						)
-				})}
+					.then(() => console.log('completed'))}
 		})
 
 		window.addEventListener('addToCart', (e) => {

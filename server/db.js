@@ -138,7 +138,7 @@ const previousViews = (data, cookie, cb) => {
     cookie: cookie,
     id: data.id
   })
-  newView.save((cb('savedView')))
+  newView.save(() => cb('savedView'));
 }
 
 const getUserViews = (cookie, cb) => {
