@@ -11,7 +11,7 @@ export default class App extends React.Component {
 				id: 205594063,
 				name: '20 oz. Hammer'
 			},
-			site: 'http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com',
+			searchSite: 'http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com',
 			itemList: [],
 			dropDownImage: {category: '', images: []},
 			itemHovered: false,
@@ -50,7 +50,7 @@ export default class App extends React.Component {
 				if (addNewView){
 					newLogin.previouslyViewed.push(e.detail.id)
 					this.setState({login: newLogin});
-					axios.post(`${this.state.site}/previousViews`, {username: this.state.login.name, id: e.detail.id}, {withCredentials: true})
+					axios.post(`${this.state.searchSite}/previousViews`, {username: this.state.login.name, id: e.detail.id}, {withCredentials: true})
 					.then(() => console.log('completed'))}
 		})
 
@@ -69,10 +69,10 @@ export default class App extends React.Component {
 				}
 			}
 			this.setState({cart: newCart});
-			axios.post(`${this.state.site}/addToCart`, {tempCart}, {withCredentials: true})
+			axios.post(`${this.state.searchSite}/addToCart`, {tempCart}, {withCredentials: true})
 			.then(()=> {console.log('success')})
 		})
-		axios.get(`${this.state.site}/allItems`, {withCredentials: true})
+		axios.get(`${this.state.searchSite}/allItems`, {withCredentials: true})
 		.then((results) => {
 			let itemList = [];
 			results.data.data.map(item => {
@@ -192,7 +192,7 @@ export default class App extends React.Component {
 	}
 
 	handleCheckout() {
-		axios.get(`${this.state.site}/checkout`, {withCredentials: true})
+		axios.get(`${this.state.searchSite}/checkout`, {withCredentials: true})
 		.then((res) => {console.log(res)
 			let newCart = {
 				cartList: [],
@@ -220,12 +220,12 @@ export default class App extends React.Component {
 		event.preventDefault()
 		let newLogin = this.state.login;
 		if (type === 'userLogin'){
-			axios.get(`${this.state.site}/userLogin`, {params: {username, password}}, {withCredentials: true})
+			axios.get(`${this.state.searchSite}/userLogin`, {params: {username, password}}, {withCredentials: true})
 			.then((res) => {
 				if (res.data === 'Logged In') {
 					newLogin.name = username;
 					newLogin.showLoginScreen = false;
-						axios.get(`${this.state.site}/getUserViews`, {params: {username}}, {withCredentials: true})
+						axios.get(`${this.state.searchSite}/getUserViews`, {params: {username}}, {withCredentials: true})
 						.then((response) => {
 							console.log(response)
 							for (let i = 0; i < response.data.length; i++){
@@ -242,7 +242,7 @@ export default class App extends React.Component {
 				}
 			});
 		} else if (type === 'newAccount'){
-			axios.post(`${this.state.site}/newAccount`, {username, password}, {withCredentials: true})
+			axios.post(`${this.state.searchSite}/newAccount`, {username, password}, {withCredentials: true})
 			.then((res) => {
 				if (res.data === 'Logged In') {
 					newLogin.name = username;
