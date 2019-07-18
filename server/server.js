@@ -5,7 +5,7 @@ const cors = require('cors');
 const path = require('path');
 const db = require('./db');
 const crypto = require("crypto");
-const whitelist = ['http://localhost:3005', 'http://homedepott.us-east-2.elasticbeanstalk.com','http://localhost:3050', 'http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com', 'http://homedepot.us-east-2.elasticbeanstalk.com'];
+const whitelist = ['http://localhost:3000','http://localhost:3005', 'http://homedepott.us-east-2.elasticbeanstalk.com','http://localhost:3050', 'http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com', 'http://homedepot.us-east-2.elasticbeanstalk.com'];
 
 const corsOptions = {
   credentials: true,
