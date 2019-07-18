@@ -157,7 +157,10 @@ const getUserViews = (cookie, cb) => {
         })
       }
     } else {
-      cb('no items viewed')
+      userViews.find({cookie: cookie})
+        .then((data) => {
+          cb(data);
+        })
     }
   })
 }
