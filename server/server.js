@@ -48,7 +48,7 @@ app.post('/addToCart', (req, res) => {
 
 app.get('/checkout', (req, res) => {
   res.cookie('HomeDepotCookie', req.cookies.HomeDepotCookie, {maxAge: 0});
-	res.send('purchase finished and cookies cleared');
+	res.cookie('HomeDepotCookie', crypto.randomBytes(20).toString('hex')).send()
 });
 
 app.get('/userLogin', (req, res) => {
@@ -73,4 +73,9 @@ app.get('/getUserViews', (req, res) => {
   db.getUserViews(req.cookies.HomeDepotCookie, (data) => {
     res.send(data)
   })
+})
+
+app.get('/newAccount', (req, res) => {
+  res.cookie('HomeDepotCookie', req.cookies.HomeDepotCookie, {maxAge: 0});
+	res.cookie('HomeDepotCookie', crypto.randomBytes(20).toString('hex')).send()
 })

@@ -7,10 +7,6 @@ export default class App extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			currentItem: {
-				id: 205594063,
-				name: '20 oz. Hammer'
-			},
 			searchSite: 'http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com',
 			itemList: [],
 			dropDownImage: {category: '', images: []},
@@ -254,20 +250,35 @@ export default class App extends React.Component {
 			});
 		}
 	}
+
+	userLogout() {
+		let newLogin = this.state.login;
+		newLogin.name = '';
+		newLogin.showLoginScreen = false;
+		this.setState({login: newLogin, itemHovered: false})
+		axios.get(`${this.state.searchSite}/newAccount`, {withCredentials: true})
+		.then(() => console.log('logged out'))
+	}
+
+	homepageClick() {
+		window.location = '/';
+	}
 	
 	render() {
 		const shadeStyle = {
-			position: 'absolute',
+			position: 'relative',
 			height: '2000px',
 			width: '100%',
 			'backgroundColor': 'black',
-			top: '163px',
+			top: '-60px',
 			'zIndex': '99',
 			opacity: '.3'
 		}
 		return (
 			<div>
 				<Header inputValue = {this.state.inputValue}
+								homepageClick = {this.homepageClick.bind(this)}
+								userLogout = {this.userLogout.bind(this)}
 								login = {this.state.login}
 								showLogin = {this.showLogin.bind(this)}
 								suggestList = {this.state.suggestList}
@@ -284,8 +295,7 @@ export default class App extends React.Component {
 								loseFocusCart = {this.loseFocusCart.bind(this)}
 								loseFocusSearch = {this.loseFocusSearch.bind(this)}
 								handleCheckout = {this.handleCheckout.bind(this)}/>
-				<NavBar item = {this.state.currentItem} 
-								imageClick = {this.imageClick.bind(this)}
+				<NavBar imageClick = {this.imageClick.bind(this)}
 								handleShadeIn = {this.handleShadeIn.bind(this)} 
 								handleShadeOut = {this.handleShadeOut.bind(this)}
 								dropDownImage = {this.state.dropDownImage}

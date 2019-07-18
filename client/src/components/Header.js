@@ -42,7 +42,7 @@ const Header = (props) => {
         <TopNavBar />
       </div>
       <div style={headerStyle} className = "container-fluid row">
-          <img src="https://home-de-potts.s3.us-east-2.amazonaws.com/home-depot-logo.png" height = "100px" width = "100px"/>
+          <img className = 'homedepotIcon' onClick = {props.homepageClick} src="https://home-de-potts.s3.us-east-2.amazonaws.com/home-depot-logo.png" height = "100px" width = "100px"/>
           <img src="https://home-de-potts.s3.us-east-2.amazonaws.com/location.png" height = "59px" width = "158px" />
           <div style={{display: 'inline'}}>
             <div style={{display: 'inline'}}>
@@ -66,6 +66,7 @@ const Header = (props) => {
             </div>
           <span style = {{padding: '30px'}}></span>
           <Login login = {props.login}
+                  userLogout = {props.userLogout}
                   showLogin = {props.showLogin}
                   userLogin = {props.userLogin}/>
           <span style = {{padding: '30px'}}></span>
