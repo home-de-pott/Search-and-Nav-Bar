@@ -119,7 +119,7 @@ const login = (creds, cookie, cb) => {
     } else {
       bcrypt.compare(creds.password, data[0].password, function(err, res) {
         if (res) {
-          usersList.findOneAndUpdate({username: creds.username}, {sessionCookie: cookie})
+          usersList.update({username: creds.username}, {sessionCookie: cookie})
           .then(() => cb('Logged In'))
         } else {
           cb('Password incorrect')

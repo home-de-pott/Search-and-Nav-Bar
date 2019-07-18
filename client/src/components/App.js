@@ -231,11 +231,6 @@ export default class App extends React.Component {
 							for (let i = 0; i < response.data.length; i++){
 								newLogin.previouslyViewed.push(response.data[i].id)
 							}
-							window.dispatchEvent(
-								new CustomEvent('previousUserViews', {
-									detail: {ids: newLogin.previouslyViewed},
-								})
-							)
 							this.setState({login: newLogin, itemHovered: false })
 						})
 				} else if(res.data === 'username does not exist'){
