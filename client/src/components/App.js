@@ -11,6 +11,7 @@ export default class App extends React.Component {
 				id: 205594063,
 				name: '20 oz. Hammer'
 			},
+			site: 'http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com',
 			itemList: [],
 			dropDownImage: {category: '', images: []},
 			itemHovered: false,
@@ -49,7 +50,7 @@ export default class App extends React.Component {
 				if (addNewView){
 					newLogin.previouslyViewed.push(e.detail.id)
 					this.setState({login: newLogin});
-					axios.post('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/previousViews', {username: this.state.login.name, id: e.detail.id}, {withCredentials: true})
+					axios.post('/previousViews', {username: this.state.login.name, id: e.detail.id}, {withCredentials: true})
 					.then(() => {
 						window.dispatchEvent(
 							new CustomEvent('previousUserViews', {
@@ -74,11 +75,10 @@ export default class App extends React.Component {
 				}
 			}
 			this.setState({cart: newCart});
-			axios.post('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/addToCart', {tempCart}, {withCredentials: true})
+			axios.post('/addToCart', {tempCart}, {withCredentials: true})
 			.then(()=> {console.log('success')})
 		})
-	
-		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/allItems', {withCredentials: true})
+		axios.get('/allItems', {withCredentials: true})
 		.then((results) => {
 			let itemList = [];
 			results.data.data.map(item => {
@@ -198,7 +198,7 @@ export default class App extends React.Component {
 	}
 
 	handleCheckout() {
-		axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/checkout', {withCredentials: true})
+		axios.get('/checkout', {withCredentials: true})
 		.then((res) => {console.log(res)
 			let newCart = {
 				cartList: [],
@@ -226,12 +226,12 @@ export default class App extends React.Component {
 		event.preventDefault()
 		let newLogin = this.state.login;
 		if (type === 'userLogin'){
-			axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/userLogin', {params: {username, password}}, {withCredentials: true})
+			axios.get('/userLogin', {params: {username, password}}, {withCredentials: true})
 			.then((res) => {
 				if (res.data === 'Logged In') {
 					newLogin.name = username;
 					newLogin.showLoginScreen = false;
-						axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/getUserViews', {params: {username}}, {withCredentials: true})
+						axios.get('/getUserViews', {params: {username}}, {withCredentials: true})
 						.then((response) => {
 							for (let i = 0; i < response.data.length; i++){
 								newLogin.previouslyViewed.push(response.data[i].id)
@@ -252,7 +252,7 @@ export default class App extends React.Component {
 				}
 			});
 		} else if (type === 'newAccount'){
-			axios.post('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/newAccount', {username, password}, {withCredentials: true})
+			axios.post('/newAccount', {username, password}, {withCredentials: true})
 			.then((res) => {
 				if (res.data === 'Logged In') {
 					newLogin.name = username;

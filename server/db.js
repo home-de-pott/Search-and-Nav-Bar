@@ -63,21 +63,22 @@ const getAll = (cb) => {
 const getAllandCart = (cookie, cb) => {
   itemList.find()
   .then((data) => {
-    usersList.find({session:cookie})
+    usersList.find({sessionCookie:cookie})
     .then((users) => {
+      console.log(users)
       let login = {name: '', previouslyViewed: [], showLoginScreen: false, error: ''};
-      if (users[0].length !== 0){
+      if (users.length !== 0){
         login.name = users[0].username;
         userViews.find({$or:[{username:login.name}, {cookie: cookie}]})
         .then((data) => {
           data.map((item) => login.previouslyViewed.push(item.id))
-          cartList.find({cookie: userCookie})
+          cartList.find({cookie: cookie})
           .then((results) => {
             cb(data, results, login);
           })
         })
       }
-      cartList.find({cookie: userCookie})
+      cartList.find({cookie: cookie})
       .then((results) => {
         cb(data, results, login);
       })
