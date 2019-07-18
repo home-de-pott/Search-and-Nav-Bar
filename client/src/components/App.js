@@ -11,7 +11,7 @@ export default class App extends React.Component {
 				id: 205594063,
 				name: '20 oz. Hammer'
 			},
-			searchSite: '',
+			searchSite: 'http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/',
 			itemList: [],
 			dropDownImage: {category: '', images: []},
 			itemHovered: false,
