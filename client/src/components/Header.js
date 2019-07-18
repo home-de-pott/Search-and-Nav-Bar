@@ -57,8 +57,8 @@ const Header = (props) => {
               {props.showSuggest === true ? (
                 <div style = {listStyle} className = "border border-dark">
                   {props.suggestList.map((item) => 
-                    <div className = "dropdown-item" onClick = {props.renderNewItem}>
-                          <span id = {item.id} key = {item.id}>{item.name} </span>
+                    <div key = {item.id} className = "dropdown-item" onClick = {props.renderNewItem}>
+                          <span id = {item.id}>{item.name} </span>
                           <img style = {{position: 'relative', float: 'right'}}height = '40px' src={`https://home-de-potts.s3.us-east-2.amazonaws.com/items/${item.id}-0.jpg`} />
                     </div>)}
                 </div>

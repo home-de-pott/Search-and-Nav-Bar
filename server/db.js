@@ -60,15 +60,37 @@ const getAll = (cb) => {
   .then((data) => cb(data))
 }
 
-const getAllandCart = (userCookie, cb) => {
+const getAllandCart = (cookie, cb) => {
   itemList.find()
   .then((data) => {
-  cartList.find({cookie: userCookie})
-  .then((results) => {
-    cb(data, results)
-  })
-})
+    usersList.find({session:cookie})
+    .then((users) => {
+      let login = {name: '', previouslyViewed: [], showLoginScreen: false, error: ''};
+      if (users[0].length !== 0){
+        login.name = users[0].username;
+        userViews.find({$or:[{username:login.name}, {cookie: cookie}]})
+        .then((data) => {
+          data.map((item) => login.previouslyViewed.push(item.id))
+          cartList.find({cookie: userCookie})
+          .then((results) => {
+            cb(data, results, login);
+          })
+        })
+      }
+      cartList.find({cookie: userCookie})
+      .then((results) => {
+        cb(data, results, login);
+      })
+    })
+    })
 }
+
+//login: {
+//   name: '',
+//   previouslyViewed: [],
+//   showLoginScreen: false,
+//   error: ''
+// }
 
 const newAccount = (creds, cookie, cb) => {
   usersList.find({username: creds.username})

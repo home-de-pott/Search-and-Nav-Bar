@@ -39,17 +39,16 @@ export default class App extends React.Component {
 		window.addEventListener('getProduct', (e) => {
 			let newLogin = this.state.login;
 				let addNewView = false;
-				if (this.state.login.name !== ''){
-					for (let i = 0; i < newLogin.previouslyViewed.length; i++){
-						if (newLogin.previouslyViewed[i] === e.detail.id){
-							break;
-						}
+				for (let i = 0; i < newLogin.previouslyViewed.length; i++){
+					if (newLogin.previouslyViewed[i] === e.detail.id){
+						break;
 					}
-					addNewView = true;
+					if (i === newLogin.previouslyViewed.length - 1){
+						addNewView = true;}
 				}
 				if (addNewView){
 					newLogin.previouslyViewed.push(e.detail.id)
-					this.setState({login: newLogin})
+					this.setState({login: newLogin});
 					axios.post('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/previousViews', {username: this.state.login.name, id: e.detail.id}, {withCredentials: true})
 					.then(() => {
 						window.dispatchEvent(
@@ -57,8 +56,7 @@ export default class App extends React.Component {
 								detail: {ids: this.state.login.previouslyViewed},
 							})
 						)
-					})
-				}
+				})}
 		})
 
 		window.addEventListener('addToCart', (e) => {
@@ -98,6 +96,9 @@ export default class App extends React.Component {
 				}))
 				newCart.numberOfItems = newCart.cartList.length;
 				this.setState({cart: newCart});
+			}
+			if (results.data.login.name !== ''){
+				this.setState({login: results.data.login})
 			}
 		})
 	}
