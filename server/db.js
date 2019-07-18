@@ -144,16 +144,20 @@ const previousViews = (data, cookie, cb) => {
 const getUserViews = (cookie, cb) => {
   usersList.find({sessionCookie: cookie})
   .then((data) => {
-    if (data[0].username){
-      userViews.find({$or:[{username:data[0].username}, {cookie: cookie}]})
-      .then((data) => {
-        cb(data);
-      })
+    if (data.length){
+      if (data[0].username){
+        userViews.find({$or:[{username:data[0].username}, {cookie: cookie}]})
+        .then((data) => {
+          cb(data);
+        })
+      } else {
+        userViews.find({cookie: cookie})
+        .then((data) => {
+          cb(data);
+        })
+      }
     } else {
-      userViews.find({cookie: cookie})
-      .then((data) => {
-        cb(data);
-      })
+      cb('no items viewed')
     }
   })
 }
