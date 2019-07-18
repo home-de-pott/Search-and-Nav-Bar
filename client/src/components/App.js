@@ -11,7 +11,7 @@ export default class App extends React.Component {
 				id: 205594063,
 				name: '20 oz. Hammer'
 			},
-			searchSite: 'http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com',
+			searchSite: '',
 			itemList: [],
 			dropDownImage: {category: '', images: []},
 			itemHovered: false,
@@ -39,19 +39,18 @@ export default class App extends React.Component {
 		this.appendScript("https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js");
 		window.addEventListener('getProduct', (e) => {
 			let newLogin = this.state.login;
-				let addNewView = false;
-				for (let i = 0; i < newLogin.previouslyViewed.length; i++){
-					if (newLogin.previouslyViewed[i] === e.detail.id){
-						break;
-					}
-					if (i === newLogin.previouslyViewed.length - 1){
-						addNewView = true;}
+			let addNewView = true;
+			for (let i = 0; i < newLogin.previouslyViewed.length; i++){
+				if (newLogin.previouslyViewed[i] === e.detail.id){
+					addNewView = false
+					break;
 				}
-				if (addNewView){
-					newLogin.previouslyViewed.push(e.detail.id)
-					this.setState({login: newLogin});
-					axios.post(`${this.state.searchSite}/previousViews`, {username: this.state.login.name, id: e.detail.id}, {withCredentials: true})
-					.then(() => console.log('completed'))}
+			}
+			if (addNewView){
+				newLogin.previouslyViewed.push(e.detail.id)
+				this.setState({login: newLogin});
+				axios.post(`${this.state.searchSite}/previousViews`, {username: this.state.login.name, id: e.detail.id}, {withCredentials: true})
+				.then(() => console.log('completed'))}
 		})
 
 		window.addEventListener('addToCart', (e) => {
