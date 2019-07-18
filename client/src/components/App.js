@@ -50,7 +50,7 @@ export default class App extends React.Component {
 				if (addNewView){
 					newLogin.previouslyViewed.push(e.detail.id)
 					this.setState({login: newLogin})
-					axios.post('/previousViews', {username: this.state.login.name, id: e.detail.id})
+					axios.post('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/previousViews', {username: this.state.login.name, id: e.detail.id}, {withCredentials: true})
 					.then(() => {
 						window.dispatchEvent(
 							new CustomEvent('previousUserViews', {
@@ -225,12 +225,12 @@ export default class App extends React.Component {
 		event.preventDefault()
 		let newLogin = this.state.login;
 		if (type === 'userLogin'){
-			axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/userLogin', {params: {username, password}})
+			axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/userLogin', {params: {username, password}}, {withCredentials: true})
 			.then((res) => {
 				if (res.data === 'Logged In') {
 					newLogin.name = username;
 					newLogin.showLoginScreen = false;
-						axios.get('/getUserViews')
+						axios.get('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/getUserViews', {params: {username}}, {withCredentials: true})
 						.then((response) => {
 							for (let i = 0; i < response.data.length; i++){
 								newLogin.previouslyViewed.push(response.data[i].id)
@@ -241,7 +241,6 @@ export default class App extends React.Component {
 								})
 							)
 							this.setState({login: newLogin, itemHovered: false })
-							console.log(this.state.login.previouslyViewed)
 						})
 				} else if(res.data === 'username does not exist'){
 					newLogin.error = res.data;
@@ -252,7 +251,7 @@ export default class App extends React.Component {
 				}
 			});
 		} else if (type === 'newAccount'){
-			axios.post('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/newAccount', {username, password})
+			axios.post('http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/newAccount', {username, password}, {withCredentials: true})
 			.then((res) => {
 				if (res.data === 'Logged In') {
 					newLogin.name = username;

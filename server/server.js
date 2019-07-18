@@ -52,25 +52,25 @@ app.get('/checkout', (req, res) => {
 });
 
 app.get('/userLogin', (req, res) => {
-  db.login(req.query, (response) => {
+  db.login(req.query, req.cookies.HomeDepotCookie, (response) => {
     res.send(response);
   })
 })
 
 app.post('/newAccount', (req, res) => {
-  db.newAccount(req.body, (response) => {
+  db.newAccount(req.body, req.cookies.HomeDepotCookie, (response) => {
     res.send(response);
   })
 })
 
 app.post('/previousViews', (req, res) => {
-  db.previousViews(req.body, (response) => {
+  db.previousViews(req.body, req.cookies.HomeDepotCookie,  (response) => {
     res.send(response)
   })
 })
 
 app.get('/getUserViews', (req, res) => {
-  db.getUserViews((data) => {
+  db.getUserViews(req.cookies.HomeDepotCookie, (data) => {
     res.send(data)
   })
 })

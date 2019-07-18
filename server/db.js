@@ -21,11 +21,13 @@ const cartSchema = mongoose.Schema({
 
 const usersSchema = mongoose.Schema({
   username: String,
-  password: String
+  password: String,
+  sessionCookie: String
 })
 
 const userViewsSchema = mongoose.Schema({
   username: String,
+  cookie: String,
   id: Number
 })
 
@@ -68,13 +70,14 @@ const getAllandCart = (userCookie, cb) => {
 })
 }
 
-const newAccount = (creds, cb) => {
+const newAccount = (creds, cookie, cb) => {
   usersList.find({username: creds.username})
   .then((data) => {
     if (data.length === 0){
       bcrypt.hash(creds.password, saltRounds, function(err, hash) {
         let newUser = new usersList({
           username: creds.username,
+          sessionCookie: cookie,
           password: hash
         })
         newUser.save(() => cb('Logged In'))
@@ -85,7 +88,7 @@ const newAccount = (creds, cb) => {
   })
 }
 
-const login = (creds, cb) => {
+const login = (creds, cookie, cb) => {
   usersList.find({username: creds.username})
   .then((data) => {
     if (data.length === 0){
@@ -94,8 +97,8 @@ const login = (creds, cb) => {
     } else {
       bcrypt.compare(creds.password, data[0].password, function(err, res) {
         if (res) {
-          cb('Logged In');
-          return;
+          usersList.findOneAndUpdate({username: creds.username}, {sessionCookie: cookie})
+          .then(() => cb('Logged In'))
         } else {
           cb('Password incorrect')
         }
@@ -104,18 +107,32 @@ const login = (creds, cb) => {
   })
 }
 
-const previousViews = (data, cb) => {
+const previousViews = (data, cookie, cb) => {
+  if (!data.username){
+    data.username = '';
+  }
   let newView = new userViews({
     username: data.username,
+    cookie: cookie,
     id: data.id
   })
   newView.save((cb('savedView')))
 }
 
-const getUserViews = (cb) => {
-  userViews.find()
+const getUserViews = (cookie, cb) => {
+  usersList.find({sessionCookie: cookie})
   .then((data) => {
-    cb(data);
+    if (data[0].username){
+      userViews.find({$or:[{username:user}, {cookie: cookie}]})
+      .then((data) => {
+        cb(data);
+      })
+    } else {
+      userViews.find({cookie: cookie})
+      .then((data) => {
+        cb(data);
+      })
+    }
   })
 }
 
