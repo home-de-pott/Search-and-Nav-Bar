@@ -11,7 +11,7 @@ export default class App extends React.Component {
 				id: 205594063,
 				name: '20 oz. Hammer'
 			},
-			searchSite: 'http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com',
+			searchSite: '',
 			itemList: [],
 			dropDownImage: {category: '', images: []},
 			itemHovered: false,
@@ -219,12 +219,12 @@ export default class App extends React.Component {
 		event.preventDefault()
 		let newLogin = this.state.login;
 		if (type === 'userLogin'){
-			axios.get(`${this.state.searchSite}/userLogin`, {params: {username, password}}, {withCredentials: true})
+			axios.get(`${this.state.searchSite}/userLogin`, {params: {username, password}, withCredentials: true})
 			.then((res) => {
 				if (res.data === 'Logged In') {
 					newLogin.name = username;
 					newLogin.showLoginScreen = false;
-						axios.get(`${this.state.searchSite}/getUserViews`, {params: {username}}, {withCredentials: true})
+						axios.get(`${this.state.searchSite}/getUserViews`, {params: {username, password}, withCredentials: true})
 						.then((response) => {
 							console.log(response)
 							for (let i = 0; i < response.data.length; i++){
