@@ -11,7 +11,7 @@ export default class App extends React.Component {
 				id: 205594063,
 				name: '20 oz. Hammer'
 			},
-			site: 'http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com',
+			site: 'http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com/',
 			itemList: [],
 			dropDownImage: {category: '', images: []},
 			itemHovered: false,
@@ -233,6 +233,7 @@ export default class App extends React.Component {
 					newLogin.showLoginScreen = false;
 						axios.get(`${this.state.site}/getUserViews`, {params: {username}}, {withCredentials: true})
 						.then((response) => {
+							console.log(response)
 							for (let i = 0; i < response.data.length; i++){
 								newLogin.previouslyViewed.push(response.data[i].id)
 							}

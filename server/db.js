@@ -65,7 +65,6 @@ const getAllandCart = (cookie, cb) => {
   .then((data) => {
     usersList.find({sessionCookie:cookie})
     .then((users) => {
-      console.log(users)
       let login = {name: '', previouslyViewed: [], showLoginScreen: false, error: ''};
       if (users.length !== 0){
         login.name = users[0].username;
@@ -146,7 +145,7 @@ const getUserViews = (cookie, cb) => {
   usersList.find({sessionCookie: cookie})
   .then((data) => {
     if (data[0].username){
-      userViews.find({$or:[{username:user}, {cookie: cookie}]})
+      userViews.find({$or:[{username:data[0].username}, {cookie: cookie}]})
       .then((data) => {
         cb(data);
       })
