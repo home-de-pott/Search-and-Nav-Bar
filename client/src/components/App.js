@@ -240,7 +240,7 @@ export default class App extends React.Component {
 									detail: {ids: newLogin.previouslyViewed},
 								})
 							)
-							this.setState({login: newLogin })
+							this.setState({login: newLogin, itemHovered: false })
 							console.log(this.state.login.previouslyViewed)
 						})
 				} else if(res.data === 'username does not exist'){
@@ -257,7 +257,7 @@ export default class App extends React.Component {
 				if (res.data === 'Logged In') {
 					newLogin.name = username;
 					newLogin.showLoginScreen = false;
-					this.setState({login: newLogin})
+					this.setState({login: newLogin, itemHovered: false})
 				} else if(res.data === 'username exists'){
 					newLogin.error = res.data;
 					this.setState({login: newLogin})
