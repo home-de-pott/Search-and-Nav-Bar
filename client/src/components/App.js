@@ -50,7 +50,7 @@ export default class App extends React.Component {
 				if (addNewView){
 					newLogin.previouslyViewed.push(e.detail.id)
 					this.setState({login: newLogin});
-					axios.post('/previousViews', {username: this.state.login.name, id: e.detail.id}, {withCredentials: true})
+					axios.post(`${this.state.site}/previousViews`, {username: this.state.login.name, id: e.detail.id}, {withCredentials: true})
 					.then(() => {
 						window.dispatchEvent(
 							new CustomEvent('previousUserViews', {
@@ -75,10 +75,10 @@ export default class App extends React.Component {
 				}
 			}
 			this.setState({cart: newCart});
-			axios.post('/addToCart', {tempCart}, {withCredentials: true})
+			axios.post(`${this.state.site}/addToCart`, {tempCart}, {withCredentials: true})
 			.then(()=> {console.log('success')})
 		})
-		axios.get('/allItems', {withCredentials: true})
+		axios.get(`${this.state.site}/allItems`, {withCredentials: true})
 		.then((results) => {
 			let itemList = [];
 			results.data.data.map(item => {
@@ -198,7 +198,7 @@ export default class App extends React.Component {
 	}
 
 	handleCheckout() {
-		axios.get('/checkout', {withCredentials: true})
+		axios.get(`${this.state.site}/checkout`, {withCredentials: true})
 		.then((res) => {console.log(res)
 			let newCart = {
 				cartList: [],
@@ -226,12 +226,12 @@ export default class App extends React.Component {
 		event.preventDefault()
 		let newLogin = this.state.login;
 		if (type === 'userLogin'){
-			axios.get('/userLogin', {params: {username, password}}, {withCredentials: true})
+			axios.get(`${this.state.site}/userLogin`, {params: {username, password}}, {withCredentials: true})
 			.then((res) => {
 				if (res.data === 'Logged In') {
 					newLogin.name = username;
 					newLogin.showLoginScreen = false;
-						axios.get('/getUserViews', {params: {username}}, {withCredentials: true})
+						axios.get(`${this.state.site}/getUserViews`, {params: {username}}, {withCredentials: true})
 						.then((response) => {
 							for (let i = 0; i < response.data.length; i++){
 								newLogin.previouslyViewed.push(response.data[i].id)
@@ -252,7 +252,7 @@ export default class App extends React.Component {
 				}
 			});
 		} else if (type === 'newAccount'){
-			axios.post('/newAccount', {username, password}, {withCredentials: true})
+			axios.post(`${this.state.site}/newAccount`, {username, password}, {withCredentials: true})
 			.then((res) => {
 				if (res.data === 'Logged In') {
 					newLogin.name = username;
