@@ -6,12 +6,10 @@ import HomeServices from './HomeServices.js'
 
 const NavBar = (props) => {
 	const navStyle = {
-		position: 'relative',
-		top: '-25px'
+		position: 'relative'
 	}
 	const lineStyle = {
 		position: 'relative',
-		top: '-40px',
 		width: '100%',
 		border: '2px solid #f86202'
 	}

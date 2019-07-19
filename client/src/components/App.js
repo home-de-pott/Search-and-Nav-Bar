@@ -270,10 +270,15 @@ export default class App extends React.Component {
 	}
 
 	userLogout() {
+		let tempCart = {cartList: [],
+			cartClicked: false,
+			numberOfItems: 0,
+			totalPrice: 0
+		}
 		let newLogin = this.state.login;
 		newLogin.name = '';
 		newLogin.showLoginScreen = false;
-		this.setState({login: newLogin, itemHovered: false})
+		this.setState({login: newLogin, itemHovered: false, cart: tempCart})
 		axios.get(`${this.state.searchSite}/logout`, {withCredentials: true})
 		.then(() => console.log('logged out'))
 	}
@@ -288,7 +293,7 @@ export default class App extends React.Component {
 			height: '2000px',
 			width: '100%',
 			'backgroundColor': 'black',
-			top: '163px',
+			top: '205px',
 			'zIndex': '99',
 			opacity: '.3'
 		}

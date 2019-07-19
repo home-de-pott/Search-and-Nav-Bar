@@ -32,7 +32,7 @@ const Header = (props) => {
   }
   const headerStyle = {
     position: 'relative',
-    top: '-25px',
+    top: '-15px',
     display: 'inline'
   }
 
