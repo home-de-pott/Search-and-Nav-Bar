@@ -7,7 +7,7 @@ export default class App extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			searchSite: 'http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com',
+			searchSite: '',
 			itemList: [],
 			dropDownImage: {category: '', images: []},
 			itemHovered: false,
@@ -33,7 +33,7 @@ export default class App extends React.Component {
 		this.appendScript("https://code.jquery.com/jquery-3.3.1.slim.min.js");
 		this.appendScript("https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js");
 		this.appendScript("https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js");
-		window.addEventListener('getProduct', (e) => {
+		window.addEventListener('updatePath', (e) => {
 			let newLogin = this.state.login;
 			let addNewView = true;
 			for (let i = 0; i < newLogin.previouslyViewed.length; i++){
@@ -50,17 +50,32 @@ export default class App extends React.Component {
 		})
 
 		window.addEventListener('addToCart', (e) => {
+			let newItem = true;
+			if (!e.detail.quantity) {
+				e.detail.quantity = 1;
+			}
 			let newCart = this.state.cart;
 			let tempCart = {}
-			newCart.numberOfItems++;
 			for (let i = 0; i < this.state.itemList.length; i++){
 				if (parseInt(this.state.itemList[i].id) == e.detail.id){
 					tempCart.name = this.state.itemList[i].name;
 					tempCart.id = e.detail.id;
+					tempCart.quantity = e.detail.quantity;
 					tempCart.price = this.state.itemList[i].price;
-					newCart.totalPrice += this.state.itemList[i].price;
-					newCart.cartList.push({id: this.state.itemList[i].id, name: this.state.itemList[i].name, price: this.state.itemList[i].price});
-					break;
+					newCart.numberOfItems++;
+					for (let j = 0; j < newCart.cartList.length; j++){
+						if (newCart.cartList[j].id === e.detail.id){
+							newCart.cartList[j].quantity += e.detail.quantity;
+							newItem = false;
+							//add to total price?
+							break;
+						}
+					}
+					if (newItem){
+						newCart.totalPrice += (this.state.itemList[i].price * e.detail.quantity);
+						newCart.cartList.push({id: this.state.itemList[i].id, name: this.state.itemList[i].name, price: this.state.itemList[i].price, quantity: e.detail.quantity});
+						break;
+					}
 				}
 			}
 			this.setState({cart: newCart});
@@ -69,6 +84,7 @@ export default class App extends React.Component {
 		})
 		axios.get(`${this.state.searchSite}/allItems`, {withCredentials: true})
 		.then((results) => {
+			console.log(results.data.data)
 			let itemList = [];
 			results.data.data.map(item => {
 				if (item.name.length > 40){
@@ -80,10 +96,10 @@ export default class App extends React.Component {
 			if (results.data.cart){
 				let newCart = this.state.cart;
 				results.data.cart.map((item => {
-					newCart.cartList.push({id: item.id, price: item.price, name: item.name})
+					newCart.numberOfItems += item.quantity;
+					newCart.cartList.push({id: item.id, price: item.price, name: item.name, quantity: item.quantity})
 					newCart.totalPrice += item.price;
 				}))
-				newCart.numberOfItems = newCart.cartList.length;
 				this.setState({cart: newCart});
 			}
 			if (results.data.login.name !== ''){
@@ -138,7 +154,7 @@ export default class App extends React.Component {
 
 	renderNewItem(e) {
 		window.dispatchEvent(
-			new CustomEvent('getProduct', {
+			new CustomEvent('updatePath', {
 				detail: {id: e.target.id},
 			})
 		)
@@ -147,7 +163,7 @@ export default class App extends React.Component {
 
 	imageClick(id) {
 		window.dispatchEvent(
-			new CustomEvent('getProduct', {
+			new CustomEvent('updatePath', {
 				detail: {id: id},
 			})
 		)
@@ -156,11 +172,14 @@ export default class App extends React.Component {
 	}
 
 	deleteCartItem(index) {
-		let newCart = this.state.cart;
-		newCart.numberOfItems--;
-		newCart.totalPrice -= newCart.cartList[index].price;
-		newCart.cartList.splice(index, 1);
-		this.setState({cart: newCart})
+		axios.post(`${this.state.searchSite}/deleteFromCart`, {item:newCart.cartList[index]}, {withCredentials: true})
+		.then(() => {
+			let newCart = this.state.cart;
+			newCart.numberOfItems--;
+			newCart.totalPrice -= newCart.cartList[index].price;
+			newCart.cartList.splice(index, 1);
+			this.setState({cart: newCart});
+		})
 	}
 
 	setDropImg(img) {
@@ -222,7 +241,6 @@ export default class App extends React.Component {
 					newLogin.showLoginScreen = false;
 						axios.get(`${this.state.searchSite}/getUserViews`, {params: {username, password}, withCredentials: true})
 						.then((response) => {
-							console.log(response)
 							for (let i = 0; i < response.data.length; i++){
 								newLogin.previouslyViewed.push(response.data[i].id)
 							}
@@ -275,7 +293,7 @@ export default class App extends React.Component {
 			opacity: '.3'
 		}
 		return (
-			<div>
+			<>
 				<Header inputValue = {this.state.inputValue}
 								homepageClick = {this.homepageClick.bind(this)}
 								userLogout = {this.userLogout.bind(this)}
@@ -302,7 +320,7 @@ export default class App extends React.Component {
 								setDropImg = {this.setDropImg.bind(this)}
 								/>
 				{this.state.itemHovered === true ? (<div style = {shadeStyle}></div>) : (<></>)}
-			</div>
+			</>
 		)
 	}
 }

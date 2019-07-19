@@ -19,6 +19,12 @@ export default function Login(props) {
     backgroundColor: 'white',
     left: '70%'
   }
+  let closeCart = {
+    position: 'relative',
+    left: '92%',
+    height: '15px',
+    width: '15px'
+  }
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   () => setCount(count + 1)
@@ -30,6 +36,7 @@ export default function Login(props) {
     {props.login.showLoginScreen ? (<>
       {props.login.name === '' ? (<div style = {cartStyle}>
         <form>
+        <img onClick = {props.loginClick} style = {closeCart} src="https://home-de-potts.s3.us-east-2.amazonaws.com/cartx.svg" /> 
           <div className="form-group">
             <label>UserName</label>
             <input onChange = {(e) => setUsername(e.target.value)} type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter UserName" />
@@ -40,11 +47,13 @@ export default function Login(props) {
             <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
           {props.login.error === '' ? (<></>) : (<div style = {{fontSize: '10px', color: 'red'}}>{props.login.error}</div>)}
           </div>
-          <button onClick = {() => props.userLogin(username, password, 'newAccount')} className="btn btn-primary">New Account</button>
-          <button onClick = {() => props.userLogin(username, password, 'userLogin')} style = {{position: 'relative', left: '50%'}} className="btn btn-primary">Login</button>
+            <img style = {{position: 'relative', left: '10%'}} height = '40px' className = 'loginMichael' onClick = {() => props.userLogin(username, password, 'newAccount')} src="https://home-de-potts.s3.us-east-2.amazonaws.com/register.png" />
+            <div style = {{height: '15px'}}></div>
+            <img style = {{position: 'relative', left: '10%'}} height = '40px' className = 'loginMichael' onClick = {() => props.userLogin(username, password, 'userLogin')} src="https://home-de-potts.s3.us-east-2.amazonaws.com/login.png" />
         </form>
       </div>) : (<div style = {logoutStyle}>
-                   <button style = {{position: 'relative', top: '30%', left: '15%'}} onClick = {props.userLogout} className="btn btn-primary">Logout {props.login.name}</button>
+                  <img onClick = {props.loginClick} style = {{position: 'relative',left: '85%',height: '15px',width: '15px'}} src="https://home-de-potts.s3.us-east-2.amazonaws.com/cartx.svg" /> 
+                  <button style = {{backgroundColor: '#f86202', position: 'relative', top: '35%', left: '10%', border: 'black'}} onClick = {props.userLogout} className="btn btn-primary">Logout {props.login.name}</button>
                 </div>)}
       </>
       ) : (<></>)}

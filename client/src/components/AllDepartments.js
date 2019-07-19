@@ -4,7 +4,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 const AllDepartments = (props) => {
   return (
-  <li onMouseEnter = {props.handleShadeIn} onMouseLeave = {props.handleShadeOut} className="nav-item active dropdownMichael">
+  <li onMouseEnter = {props.handleShadeIn} onMouseLeave = {props.handleShadeOut} className="nav-item dropdown dropdownMichael">
     <a style = {{fontSize: '14px'}} className="navBarMichael nav-link text-dark" href="#" id="navbarDropdown"
       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Departments</a>
       <div style = {{height: '450px'}} className="dropdown-menu dropdown-menuMichael" aria-labelledby="navbarDropdown">

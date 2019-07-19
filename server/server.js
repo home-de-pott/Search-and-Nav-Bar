@@ -32,6 +32,7 @@ app.get('/allItems', (req, res) => {
   if (Object.keys(req.cookies).length){
     if (Object.keys(req.cookies.HomeDepotCookie)){
       db.getAllandCart(req.cookies.HomeDepotCookie, (data, cart, user) => {
+        console.log(data, cart, user)
         res.send({data: data, cart: cart, login: user})
       })}else {
         db.getAll((data) => res.cookie('HomeDepotCookie', crypto.randomBytes(20).toString('hex')).send({data: data}))}
@@ -71,11 +72,17 @@ app.post('/previousViews', (req, res) => {
 
 app.get('/getUserViews', (req, res) => {
   db.getUserViews(req.cookies.HomeDepotCookie, (data) => {
-    res.send(data)
+    res.send(data.slice(0, 12))
   })
 })
 
 app.get('/logout', (req, res) => {
   res.cookie('HomeDepotCookie', req.cookies.HomeDepotCookie, {maxAge: 0});
 	res.cookie('HomeDepotCookie', crypto.randomBytes(20).toString('hex')).send()
+})
+
+app.post('/deleteFromCart', (req, res) => {
+  db.deleteFromCart({item: req.body.item, cookie: req.cookies.HomeDepotCookie}, (response)=> {
+    res.send(response);
+  })
 })

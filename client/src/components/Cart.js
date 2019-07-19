@@ -34,6 +34,7 @@ const Cart = (props) => {
               <tr>
                 <th>#</th>
                 <th>Item Name</th>
+                <th>Quantity</th>
                 <th>Price</th>
                 <th></th>
               </tr>
@@ -43,7 +44,8 @@ const Cart = (props) => {
               <tr key = {Math.random()}>
                 <td>{index + 1}</td>
                 <td>{item.name}</td>
-                <td>${item.price.toFixed(2)}</td>
+                <td>{item.quantity}</td>
+                <td>${(item.price * item.quantity).toFixed(2)}{item.quantity > 1 ? (<div style = {{fontSize: '8px'}}>{item.quantity} x ${item.price}</div>) : (<></>)}</td>
                 <td>
                   <img id = {item.id} onClick = {() => props.deleteCartItem(index)}  
                     style = {{position: 'relative',height: '15px',width: '15px'}} 

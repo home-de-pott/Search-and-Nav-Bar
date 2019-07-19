@@ -16,7 +16,8 @@ const cartSchema = mongoose.Schema({
   cookie: String,
   id: Number,
   price: Number,
-  name: String
+  name: String,
+  quantity: Number
 })
 
 const usersSchema = mongoose.Schema({
@@ -50,9 +51,20 @@ const addToCart = (item, cb) => {
     cookie: item.cookie,
     id: item.item.id,
     price: item.item.price,
-    name: item.item.name
+    name: item.item.name,
+    quantity: item.item.quantity
   });
-  cart.save(() => {cb('item saved')})
+  cartList.find({cookie: item.cookie, id: item.item.id})
+  .then((res) => {
+    console.log(res)
+    if (res.length === 0){
+      cart.save(() => {cb('item saved')})
+    } else {
+      item.item.quantity += res[0].quantity
+      cartList.updateOne({_id: res[0]._id}, {quantity: item.item.quantity})
+      .then(()=> cb('updated item quantity'))
+    }
+  })
 }
 
 const getAll = (cb) => {
@@ -69,20 +81,21 @@ const getAllandCart = (cookie, cb) => {
       if (users.length !== 0){
         login.name = users[0].username;
         userViews.find({$or:[{username:login.name}, {cookie: cookie}]})
-        .then((data) => {
-          data.map((item) => login.previouslyViewed.push(item.id))
+        .then((results) => {
+          results.map((item) => login.previouslyViewed.push(item.id))
           cartList.find({cookie: cookie})
           .then((results) => {
             cb(data, results, login);
           })
         })
-      }
+      } else {
       cartList.find({cookie: cookie})
       .then((results) => {
         cb(data, results, login);
       })
+    }
     })
-    })
+  })
 }
 
 //login: {
@@ -165,4 +178,9 @@ const getUserViews = (cookie, cb) => {
   })
 }
 
-module.exports = { getAll, addToCart, getAllandCart, newAccount, login, previousViews, getUserViews };
+const deleteFromCart = (item, cb) => {
+  cartList.deleteOne({cookie: item.cookie, id: item.item.id})
+  .then((res) => {cb('item deleted')})
+}
+
+module.exports = { getAll, addToCart, getAllandCart, newAccount, login, previousViews, getUserViews, deleteFromCart };
