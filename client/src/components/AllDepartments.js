@@ -3,9 +3,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 
 const AllDepartments = (props) => {
-  {/* <img style = {{position: 'absolute', left: '248px', top: '0px'}} src = {`https://home-de-potts.s3.us-east-2.amazonaws.com/${props.dropDownImage}.png`} height = "400px" />)  */}
   return (
-  <li onMouseEnter = {props.handleShadeIn} onMouseLeave = {props.handleShadeOut} className="nav-item dropdown dropdownMichael">
+  <li onMouseEnter = {props.handleShadeIn} onMouseLeave = {props.handleShadeOut} className="nav-item active dropdownMichael">
     <a style = {{fontSize: '14px'}} className="navBarMichael nav-link text-dark" href="#" id="navbarDropdown"
       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Departments</a>
       <div style = {{height: '450px'}} className="dropdown-menu dropdown-menuMichael" aria-labelledby="navbarDropdown">
@@ -31,7 +30,6 @@ const AllDepartments = (props) => {
       {props.dropDownImage.images.length === 0 ? (<></>) :(
         <a style = {{position: 'relative', left: '200px', top: '-432px'}} className="dropdown-item" href="#"
             onMouseEnter = {() => props.setDropImg(props.dropDownImage.category)} onMouseLeave = {() => props.setDropImg('')}>
-        
         <Carousel stopOnHover = {false} autoPlay infiniteLoop showThumbs={false} width = {'444px'}>
           {props.dropDownImage.images.map((item) => {
             return(

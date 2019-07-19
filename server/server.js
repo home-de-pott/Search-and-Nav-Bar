@@ -75,7 +75,7 @@ app.get('/getUserViews', (req, res) => {
   })
 })
 
-app.get('/newAccount', (req, res) => {
+app.get('/logout', (req, res) => {
   res.cookie('HomeDepotCookie', req.cookies.HomeDepotCookie, {maxAge: 0});
 	res.cookie('HomeDepotCookie', crypto.randomBytes(20).toString('hex')).send()
 })

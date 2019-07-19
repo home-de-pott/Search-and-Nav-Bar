@@ -2,7 +2,7 @@ import React from 'react';
 
 const HomeDecor = (props) => {
   return (
-    <div onMouseEnter = {props.handleShadeIn} onMouseLeave = {props.handleShadeOut} >
+    <div className = 'd-none d-md-block' onMouseEnter = {props.handleShadeIn} onMouseLeave = {props.handleShadeOut} >
       <li className="nav-item dropdown dropdownMichael">
           <a style = {{fontSize: '14px'}} className="navBarMichael nav-link text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Home Decor

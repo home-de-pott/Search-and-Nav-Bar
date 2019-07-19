@@ -256,7 +256,7 @@ export default class App extends React.Component {
 		newLogin.name = '';
 		newLogin.showLoginScreen = false;
 		this.setState({login: newLogin, itemHovered: false})
-		axios.get(`${this.state.searchSite}/newAccount`, {withCredentials: true})
+		axios.get(`${this.state.searchSite}/logout`, {withCredentials: true})
 		.then(() => console.log('logged out'))
 	}
 
@@ -266,11 +266,11 @@ export default class App extends React.Component {
 	
 	render() {
 		const shadeStyle = {
-			position: 'relative',
+			position: 'absolute',
 			height: '2000px',
 			width: '100%',
 			'backgroundColor': 'black',
-			top: '-60px',
+			top: '163px',
 			'zIndex': '99',
 			opacity: '.3'
 		}
