@@ -62,12 +62,12 @@ export default class App extends React.Component {
 					tempCart.id = e.detail.id;
 					tempCart.quantity = e.detail.quantity;
 					tempCart.price = this.state.itemList[i].price;
-					newCart.numberOfItems++;
+					tempCart.username = this.state.login.name;
+					newCart.numberOfItems+= e.detail.quantity;
 					for (let j = 0; j < newCart.cartList.length; j++){
 						if (newCart.cartList[j].id === e.detail.id){
 							newCart.cartList[j].quantity += e.detail.quantity;
 							newItem = false;
-							//add to total price?
 							break;
 						}
 					}
@@ -84,7 +84,6 @@ export default class App extends React.Component {
 		})
 		axios.get(`${this.state.searchSite}/allItems`, {withCredentials: true})
 		.then((results) => {
-			console.log(results.data.data)
 			let itemList = [];
 			results.data.data.map(item => {
 				if (item.name.length > 40){
@@ -245,6 +244,18 @@ export default class App extends React.Component {
 								newLogin.previouslyViewed.push(response.data[i].id)
 							}
 							this.setState({login: newLogin, itemHovered: false })
+							axios.get(`${this.state.searchSite}/getCart`, {params: {username}, withCredentials: true})
+							.then((cartData) => {
+								if (cartData.data.length){
+									let newCart = this.state.cart;
+									cartData.data.map((item => {
+										newCart.numberOfItems += item.quantity;
+										newCart.cartList.push({id: item.id, price: item.price, name: item.name, quantity: item.quantity})
+										newCart.totalPrice += item.price;
+									}))
+									this.setState({cart: newCart});
+								}
+							})
 						})
 				} else if(res.data === 'username does not exist'){
 					newLogin.error = res.data;

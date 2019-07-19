@@ -14,6 +14,7 @@ let itemSchema = mongoose.Schema({
 
 const cartSchema = mongoose.Schema({
   cookie: String,
+  username: String,
   id: Number,
   price: Number,
   name: String,
@@ -49,6 +50,7 @@ const userViews = mongoose.model('UserViews', userViewsSchema);
 const addToCart = (item, cb) => {
   let cart = new cartList({
     cookie: item.cookie,
+    username: item.item.username,
     id: item.item.id,
     price: item.item.price,
     name: item.item.name,
@@ -56,7 +58,6 @@ const addToCart = (item, cb) => {
   });
   cartList.find({cookie: item.cookie, id: item.item.id})
   .then((res) => {
-    console.log(res)
     if (res.length === 0){
       cart.save(() => {cb('item saved')})
     } else {
@@ -183,4 +184,17 @@ const deleteFromCart = (item, cb) => {
   .then((res) => {cb('item deleted')})
 }
 
-module.exports = { getAll, addToCart, getAllandCart, newAccount, login, previousViews, getUserViews, deleteFromCart };
+const checkout = (cookie, cb) => {
+  cartList.deleteMany({cookie: cookie})
+  .then(() => cb('checkout complete'))
+}
+
+const getCart = (creds, cookie, cb) => {
+  cartList.find({username: creds.username})
+  .then((results) => {
+    console.log(results)
+    cb(results);
+  })
+}
+
+module.exports = { getAll, addToCart, getAllandCart, newAccount, login, previousViews, getUserViews, deleteFromCart, checkout, getCart };
