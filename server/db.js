@@ -150,7 +150,7 @@ const previousViews = (data, cookie, cb) => {
     cookie: cookie,
     id: data.id
   })
-  userViews.find({$or:[{username:data[0].username}, {cookie: cookie}]})
+  userViews.find({$or:[{username:data.username}, {cookie: cookie}]})
   .then((results) => {
     if (results.length){
       cb('already in database');
