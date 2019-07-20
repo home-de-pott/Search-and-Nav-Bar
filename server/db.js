@@ -156,13 +156,16 @@ const previousViews = (data, cookie, cb) => {
     if (results.length){
       for (let i = 0; i < results.length; i++){
         if (results[i].id === data.id){
+          console.log('already in database')
           cb('already in database');
           return;
         }
       }
+      console.log('saved')
       newView.save(() => cb('savedView'));
       return;
     }
+    console.log('saved')
     newView.save(() => cb('savedView'));
   })
   } else {
