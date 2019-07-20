@@ -150,7 +150,14 @@ const previousViews = (data, cookie, cb) => {
     cookie: cookie,
     id: data.id
   })
-  newView.save(() => cb('savedView'));
+  userViews.find({$or:[{username:data[0].username}, {cookie: cookie}]})
+  .then((results) => {
+    if (results.length){
+      cb('already in database');
+      return;
+    }
+    newView.save(() => cb('savedView'));
+  })
 }
 
 const getUserViews = (cookie, cb) => {
