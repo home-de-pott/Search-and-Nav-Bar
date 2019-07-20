@@ -9,6 +9,7 @@ Search and NavBar component has its own database to keep track of items, recentl
 
 Contributors: 
 
+For this component
 [Michael Bergeron](https://github.com/Michael-Bergeron) - Search and NavBar
 
 ### Tech Stack 
