@@ -59,13 +59,13 @@ export default class App extends React.Component {
 			for (let i = 0; i < this.state.itemList.length; i++){
 				if (parseInt(this.state.itemList[i].id) == e.detail.id){
 					tempCart.name = this.state.itemList[i].name;
-					tempCart.id = e.detail.id;
+					tempCart.id = parseInt(e.detail.id);
 					tempCart.quantity = e.detail.quantity;
 					tempCart.price = this.state.itemList[i].price;
 					tempCart.username = this.state.login.name;
 					newCart.numberOfItems+= e.detail.quantity;
 					for (let j = 0; j < newCart.cartList.length; j++){
-						if (newCart.cartList[j].id === e.detail.id){
+						if (newCart.cartList[j].id == e.detail.id){
 							newCart.cartList[j].quantity += e.detail.quantity;
 							newItem = false;
 							break;
