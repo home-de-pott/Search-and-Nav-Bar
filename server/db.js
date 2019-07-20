@@ -153,10 +153,9 @@ const previousViews = (data, cookie, cb) => {
   if (data.username === ''){
     userViews.find({cookie: cookie})
     .then((results) => {
-      console.log(results)
     if (results.length){
       for (let i = 0; i < results.length; i++){
-        if (results[i].id === data.id){
+        if (results[i].id == data.id){
           console.log('already in database')
           cb('already in database');
           return;
@@ -166,7 +165,6 @@ const previousViews = (data, cookie, cb) => {
       newView.save(() => cb('savedView'));
       return;
     }
-    console.log('saved2')
     newView.save(() => cb('savedView'));
   })
   } else {
