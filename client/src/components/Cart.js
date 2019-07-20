@@ -5,7 +5,7 @@ const Cart = (props) => {
   let cartStyle = {
     border: '1px solid black',
     position: 'absolute',
-    left: '80%',
+    left: '75%',
     width: '400px',
     backgroundColor: 'white',
     padding: '5px',

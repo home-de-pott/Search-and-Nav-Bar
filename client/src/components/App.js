@@ -7,7 +7,7 @@ export default class App extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			searchSite: 'http://ec2-18-217-166-165.us-east-2.compute.amazonaws.com',
+			searchSite: '',
 			itemList: [],
 			dropDownImage: {category: '', images: []},
 			itemHovered: false,
@@ -82,7 +82,7 @@ export default class App extends React.Component {
 			axios.post(`${this.state.searchSite}/addToCart`, {tempCart}, {withCredentials: true})
 			.then(()=> {console.log('success')})
 		})
-		axios.get(`${this.state.searchSite}/allItems`, {withCredentials: true})
+		axios.get(`${this.state.searchSite}/allItems`, {params: {name: this.state.login.name}, withCredentials: true})
 		.then((results) => {
 			let itemList = [];
 			results.data.data.map(item => {
@@ -171,11 +171,11 @@ export default class App extends React.Component {
 	}
 
 	deleteCartItem(index) {
+		let newCart = this.state.cart;
+		newCart.numberOfItems--;
+		newCart.totalPrice -= newCart.cartList[index].price;
 		axios.post(`${this.state.searchSite}/deleteFromCart`, {item:newCart.cartList[index]}, {withCredentials: true})
 		.then(() => {
-			let newCart = this.state.cart;
-			newCart.numberOfItems--;
-			newCart.totalPrice -= newCart.cartList[index].price;
 			newCart.cartList.splice(index, 1);
 			this.setState({cart: newCart});
 		})
@@ -220,7 +220,7 @@ export default class App extends React.Component {
 	showLogin() {
 		let login = this.state.login;
 		let itemHovered = true;
-		if (this.state.login.showLoginScreen){
+		if (this.state.login.showLoginScreen === true){
 			login.showLoginScreen = false;
 			itemHovered = false;
 		} else {

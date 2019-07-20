@@ -20,7 +20,7 @@ const Header = (props) => {
   const listStyle = {
     position: 'absolute',
     display: 'block',
-    left: '272px',
+    left: '275px',
     top: '35px',
     width: '40%',
     minWidth: '400px',
@@ -28,7 +28,7 @@ const Header = (props) => {
     'opacity': 1,
     'maxHeight': '400px',
     'overflowY': 'scroll',
-    'zIndex': 1
+    'zIndex': 99
   }
   const headerStyle = {
     position: 'relative',
@@ -43,7 +43,7 @@ const Header = (props) => {
       </div>
       <div style={headerStyle} className = "container-fluid row">
           <img className = 'homedepotIcon' onClick = {props.homepageClick} src="https://home-de-potts.s3.us-east-2.amazonaws.com/home-depot-logo.png" height = "100px" width = "100px"/>
-          <img src="https://home-de-potts.s3.us-east-2.amazonaws.com/location.png" height = "59px" width = "158px" />
+          <img className = 'd-none d-md-inline' src="https://home-de-potts.s3.us-east-2.amazonaws.com/location.png" height = "59px" width = "158px" />
           <div style={{display: 'inline'}}>
             <div style={{display: 'inline'}}>
               <span style={{display: 'inline'}} className = "input-group mb-3">
@@ -57,9 +57,9 @@ const Header = (props) => {
               {props.showSuggest === true ? (
                 <div style = {listStyle} className = "suggestMichael border border-dark">
                   {props.suggestList.map((item) => 
-                    <div key = {item.id} className = "dropdown-item" onClick = {props.renderNewItem}>
-                          <span id = {item.id}>{item.name} </span>
-                          <img style = {{position: 'relative', float: 'right'}}height = '40px' src={`https://home-de-potts.s3.us-east-2.amazonaws.com/items/${item.id}-0.jpg`} />
+                    <div key = {item.id} className = "listclickMichael dropdown-item" onClick = {props.renderNewItem}>
+                      <span id = {item.id}>{item.name} </span>
+                      <img style = {{position: 'relative', float: 'right', top: '-4px'}}height = '33px' src={`https://home-de-potts.s3.us-east-2.amazonaws.com/items/${item.id}-0.jpg`} />
                     </div>)}
                 </div>
               ) : (<></>)}
