@@ -153,7 +153,13 @@ const previousViews = (data, cookie, cb) => {
   userViews.find({$or:[{username:data.username}, {cookie: cookie}]})
   .then((results) => {
     if (results.length){
-      cb('already in database');
+      for (let i = 0; i < results.length; i++){
+        if (results[i].id === data.id){
+          cb('already in database');
+          return;
+        }
+      }
+      newView.save(() => cb('savedView'));
       return;
     }
     newView.save(() => cb('savedView'));
