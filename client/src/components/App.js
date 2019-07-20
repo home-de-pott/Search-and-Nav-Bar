@@ -278,7 +278,7 @@ export default class App extends React.Component {
 				} else if(res.data === 'username exists'){
 					newLogin.error = res.data;
 					this.setState({login: newLogin})
-				}else if(res.data === 'Username and Password must be 6 characters minimum'){
+				}else if(res.data === '4 character minimum for username and password'){
 					newLogin.error = res.data;
 					this.setState({login: newLogin})
 				}
