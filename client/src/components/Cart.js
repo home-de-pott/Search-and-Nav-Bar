@@ -22,8 +22,10 @@ const Cart = (props) => {
   let total = (tax + (props.cart.numberOfItems * 1.99) + props.cart.totalPrice).toFixed(2);
   return ( 
     <>
-      <span className = 'cartMichael' onClick = {props.cartClick}>Cart| {props.cart.numberOfItems} items </span>
-      <img className = 'cartMichael' src="https://home-de-potts.s3.us-east-2.amazonaws.com/cart.png" height = "35px" onClick = {props.cartClick}/>
+      <div style = {{display: 'inline-block', 'minWidth': '100px', width: '150px'}}>
+        <span className = 'cartMichael' onClick = {props.cartClick}>Cart| {props.cart.numberOfItems} items </span>
+        <img className = 'cartMichael' src="https://home-de-potts.s3.us-east-2.amazonaws.com/cart.png" height = "35px" onClick = {props.cartClick}/>
+      </div>
       {props.cart.cartClicked ? (
         <div style = {cartStyle}>
           <img onClick = {props.cartClick} style = {closeCart} src="https://home-de-potts.s3.us-east-2.amazonaws.com/cartx.svg" />

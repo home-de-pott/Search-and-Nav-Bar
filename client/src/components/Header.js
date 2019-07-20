@@ -55,7 +55,7 @@ const Header = (props) => {
               </span>
             </div>
               {props.showSuggest === true ? (
-                <div style = {listStyle} className = "border border-dark">
+                <div style = {listStyle} className = "suggestMichael border border-dark">
                   {props.suggestList.map((item) => 
                     <div key = {item.id} className = "dropdown-item" onClick = {props.renderNewItem}>
                           <span id = {item.id}>{item.name} </span>

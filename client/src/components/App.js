@@ -126,7 +126,7 @@ export default class App extends React.Component {
 		 this.setState({showSuggest: false})
 		} else {
 		let currentList = [];
-		let {itemList, inputValue} = this.state;
+		let {itemList} = this.state;
 		for (let i = 0; i < itemList.length; i++){
 			if (itemList[i].name.toLowerCase().includes(e.target.value.toLowerCase())){
 				currentList.push(itemList[i]);
