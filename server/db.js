@@ -150,8 +150,10 @@ const previousViews = (data, cookie, cb) => {
     cookie: cookie,
     id: data.id
   })
-  userViews.find({$or:[{username:data.username}, {cookie: cookie}]})
-  .then((results) => {
+  if (data.username === ''){
+    userViews.find({cookie: cookie})
+    .then((results) => {
+      console.log(results)
     if (results.length){
       for (let i = 0; i < results.length; i++){
         if (results[i].id === data.id){
@@ -164,6 +166,22 @@ const previousViews = (data, cookie, cb) => {
     }
     newView.save(() => cb('savedView'));
   })
+  } else {
+    userViews.find({$or:[{username:data.username}, {cookie: cookie}]})
+    .then((results) => {
+      if (results.length){
+        for (let i = 0; i < results.length; i++){
+          if (results[i].id === data.id){
+            cb('already in database');
+            return;
+          }
+        }
+        newView.save(() => cb('savedView'));
+        return;
+      }
+      newView.save(() => cb('savedView'));
+    })
+  }
 }
 
 const getUserViews = (cookie, cb) => {
