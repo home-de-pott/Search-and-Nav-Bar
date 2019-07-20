@@ -153,7 +153,6 @@ const previousViews = (data, cookie, cb) => {
   if (data.username === ''){
     userViews.find({cookie: cookie})
     .then((results) => {
-      console.log(results)
     if (results.length){
       for (let i = 0; i < results.length; i++){
         if (results[i].id === data.id){
