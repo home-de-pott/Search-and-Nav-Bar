@@ -105,6 +105,10 @@ const getAllandCart = (creds, cookie, cb) => {
 // }
 
 const newAccount = (creds, cookie, cb) => {
+  if (creds.username.length < 4 || creds.password.length < 4){
+    cb('4 character minimum for username and password');
+    return;
+  }
   usersList.find({username: creds.username})
   .then((data) => {
     if (data.length === 0){
@@ -156,12 +160,10 @@ const previousViews = (data, cookie, cb) => {
     if (results.length){
       for (let i = 0; i < results.length; i++){
         if (results[i].id == data.id){
-          console.log('already in database')
           cb('already in database');
           return;
         }
       }
-      console.log('saved1')
       newView.save(() => cb('savedView'));
       return;
     }
