@@ -161,11 +161,11 @@ const previousViews = (data, cookie, cb) => {
           return;
         }
       }
-      console.log('saved')
+      console.log('saved1')
       newView.save(() => cb('savedView'));
       return;
     }
-    console.log('saved')
+    console.log('saved2')
     newView.save(() => cb('savedView'));
   })
   } else {
