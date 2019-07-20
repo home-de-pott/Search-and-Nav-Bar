@@ -29,18 +29,19 @@ app.use(parser.json());
 app.listen(3050, ()=>console.log('listening on port 3050'));
 
 app.get('/allItems', (req, res) => {
+  let newCookie = crypto.randomBytes(20).toString('hex')
   if (Object.keys(req.cookies).length){
     if (Object.keys(req.cookies.HomeDepotCookie)){
       db.getAllandCart(req.query, req.cookies.HomeDepotCookie, (data, cart, user) => {
         res.send({data: data, cart: cart, login: user})
       })}else {
-        res.cookie('HomeDepotCookie', crypto.randomBytes(20).toString('hex'))
-        db.getAllandCart(req.query, req.cookies.HomeDepotCookie, (data, cart, user) => {
+        res.cookie('HomeDepotCookie', newCookie)
+        db.getAllandCart(req.query, newCookie, (data, cart, user) => {
           res.send({data: data, cart: cart, login: user})
         })}
 	} else {
-    res.cookie('HomeDepotCookie', crypto.randomBytes(20).toString('hex'))
-    db.getAllandCart(req.query, req.cookies.HomeDepotCookie, (data, cart, user) => {
+    res.cookie('HomeDepotCookie', newCookie)
+    db.getAllandCart(req.query, newCookie, (data, cart, user) => {
       res.send({data: data, cart: cart, login: user})
     })
   }
