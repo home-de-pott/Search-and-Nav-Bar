@@ -3,7 +3,7 @@
 
 
 ### About
-Home De-pott is a product page clone of the home depot website. This site was created using micro services adn deployed separately. This component is the Search and NavBar component. A user can search for any item in on the site and be given a list of matches with a picture. If the user clicks the item, it will render the product. The user can also login which will bring up any previous cart items saved under that user or cookie. The user can also hover on the dropdown items and choose items from a category which will load pictures of all items in that category.
+Home De-pott is a product page clone of the home depot website. This site was created using micro services and deployed separately. This component is the Search and NavBar component. A user can search for any item in on the site and be given a list of matches with a picture. If the user clicks the item, it will render the product. The user can also login which will bring up any previous cart items saved under that user or cookie. The user can also hover on the dropdown items and choose items from a category which will load pictures of all items in that category.
 
 Search and NavBar component has its own database to keep track of items, recently viewed items, login information -- passwords hashed using bcrypt.
 
