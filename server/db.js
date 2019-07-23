@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-mongoose.connect('mongodb+srv://Michael:mongodepot@cluster0-ibbip.mongodb.net/homedepot?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://Michael:@cluster0-ibbip.mongodb.net/homedepot?retryWrites=true&w=majority');
 
 const saltRounds = 10;
 
