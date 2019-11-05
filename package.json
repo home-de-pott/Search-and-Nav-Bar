@@ -30,7 +30,7 @@
     "crypto": "^1.0.1",
     "express": "^4.17.0",
     "mdbreact": "^4.17.0",
-    "mongoose": "^5.5.14",
+    "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
     "react": "^16.8.6",
     "react-autocomplete": "^1.8.1",
